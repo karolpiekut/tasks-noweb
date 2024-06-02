@@ -8,13 +8,59 @@
     <link href="style.css" rel="stylesheet" type="text/css">
     <title>tasks manager</title>
     <script src="app.js" defer></script>
+    <style>
+        /*select, button, input {*/
+        /*    background: wheat;*/
+        /*}*/
+        /*body {*/
+        /*    background: #2e2e2e;*/
+        /*    color: wheat;*/
+        /*}*/
+
+        .visually-hidden {
+            border: 0;
+            padding: 0;
+            margin: 0;
+            position: absolute !important;
+            height: 1px;
+            width: 1px;
+            overflow: hidden;
+            clip: rect(1px 1px 1px 1px); /* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
+            clip: rect(1px, 1px, 1px, 1px); /*maybe deprecated but we need to support legacy browsers */
+            clip-path: inset(50%); /*modern browsers, clip-path works inwards from each corner*/
+            white-space: nowrap; /* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
+        }
+    </style>
 </head>
 <body>
+    <label for="projectName" class="visually-hidden">project name</label>
+    <input type="text" id="projectName" name="projectName" placeholder="project name" required>
+
+    <label for="taskName" class="visually-hidden">task name:</label>
     <input type="text" id="taskName" name="taskName" placeholder="task name" required>
+
+    <label for="taskText" class="visually-hidden">task note:</label>
+    <input type="text" id="taskText" name="taskText" placeholder="task note" required>
+
+    <label for="taskDate" class="visually-hidden">due date:</label>
+    <input type="date" id="taskDate" name="taskDate" placeholder="due date" required>
+
+    <label for="taskStatus" class="visually-hidden">select status:</label>
+    <select id="taskStatus" name="taskStatus"  required>
+        <option value="notStarted">Not started</option>
+        <option value="inProgress">In progress</option>
+        <option value="done">Done</option>
+        <option value="cancelled">Cancelled</option>
+    </select>
+
     <button id="addTask">add task</button>
+    <button id="clearLocalStorage">Clear Local Storage</button>
 <br>
 <div><h3>task list:</h3>
-    <ul id="taskList"></ul>
+    <div id="taskList"></div>
 </div>
 </body>
 </html>
+
+
+
