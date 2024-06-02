@@ -10,7 +10,7 @@ let customTaskIndex = -1;
 
 let tasksArray = localStorage.getItem("tasks") ?
 JSON.parse(localStorage.getItem('tasks')) : [];
-console.table(tasksArray);
+//console.table(tasksArray);
 
 function Task(projectName, taskName, text, date, status) {
     customTaskIndex++;
@@ -24,7 +24,7 @@ function Task(projectName, taskName, text, date, status) {
     }
 }
 
-tasksArray.forEach(addDomTask);
+tasksArray.forEach((item) => addDomTask(item.projectName, item.taskName, item.text, item.date, item.status));
 
 function createATaskDiv(projectName, taskName, text, date, status) {
     const taskDiv = document.createElement('div');
@@ -70,6 +70,7 @@ function createATaskDiv(projectName, taskName, text, date, status) {
 
 
 function addDomTask(projectName, taskName, text, date, status) {
+    //console.log(projectName);
    taskList.appendChild(createATaskDiv(projectName, taskName, text, date, status))
 }
 
