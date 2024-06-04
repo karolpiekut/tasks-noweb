@@ -30,35 +30,60 @@
             clip-path: inset(50%); /*modern browsers, clip-path works inwards from each corner*/
             white-space: nowrap; /* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
         }
+        #dataEntry {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 15px;
+        }
+        #clearLocalStorage {
+            margin-top: 100px;
+        }
     </style>
 </head>
 <body>
-    <label for="projectName" class="visually-hidden">project name</label>
-    <input type="text" id="projectName" name="projectName" placeholder="project name" required>
+<div id="dataEntry">
+    <div id="projectEntry">
+        <label for="projectName" class="visually-hidden">project name</label>
+        <input type="text" id="projectName" name="projectName" placeholder="project name" required>
+        <label for="projectDate" class="visually-hidden">Project due date</label>
+        <input type="date" id="projectDate" name="projectDate">
+        <label for="projectStatus" class="visually-hidden">select status:</label>
+        <select id="projectStatus" name="projectStatus" required>
+            <option value="notStarted">Not started</option>
+            <option value="inProgress">In progress</option>
+            <option value="done">Done</option>
+            <option value="cancelled">Cancelled</option>
+        </select>
+        <button id="addProject">add project</button>
+    </div>
+    <div id="taskEntry">
+        <label for="taskName" class="visually-hidden">task name:</label>
+        <input type="text" id="taskName" name="taskName" placeholder="task name" required>
 
-    <label for="taskName" class="visually-hidden">task name:</label>
-    <input type="text" id="taskName" name="taskName" placeholder="task name" required>
+        <label for="taskText" class="visually-hidden">task note:</label>
+        <input type="text" id="taskText" name="taskText" placeholder="task note" required>
 
-    <label for="taskText" class="visually-hidden">task note:</label>
-    <input type="text" id="taskText" name="taskText" placeholder="task note" required>
+        <label for="taskDate" class="visually-hidden">due date:</label>
+        <input type="date" id="taskDate" name="taskDate" placeholder="due date" required>
 
-    <label for="taskDate" class="visually-hidden">due date:</label>
-    <input type="date" id="taskDate" name="taskDate" placeholder="due date" required>
+        <label for="taskStatus" class="visually-hidden">select status:</label>
+        <select id="taskStatus" name="taskStatus" required>
+            <option value="notStarted">Not started</option>
+            <option value="inProgress">In progress</option>
+            <option value="done">Done</option>
+            <option value="cancelled">Cancelled</option>
+        </select>
+        <button id="addTask">add task</button>
+    </div>
+</div>
 
-    <label for="taskStatus" class="visually-hidden">select status:</label>
-    <select id="taskStatus" name="taskStatus"  required>
-        <option value="notStarted">Not started</option>
-        <option value="inProgress">In progress</option>
-        <option value="done">Done</option>
-        <option value="cancelled">Cancelled</option>
-    </select>
 
-    <button id="addTask">add task</button>
-    <button id="clearLocalStorage">Clear Local Storage</button>
 <br>
 <div><h3>task list:</h3>
     <div id="taskList"></div>
 </div>
+<button id="clearLocalStorage">Clear Local Storage</button>
 </body>
 </html>
 
