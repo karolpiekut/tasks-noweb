@@ -67,8 +67,6 @@ function createATaskDiv(projectName, taskName, text, date, status) {
     return taskDiv;
 }
 
-
-
 function addDomTask(projectName, taskName, text, date, status) {
     //console.log(projectName);
    taskList.appendChild(createATaskDiv(projectName, taskName, text, date, status))
@@ -93,3 +91,6 @@ addTaskButton.addEventListener("click", createATask);
 
 clearLocalStorageButton.addEventListener("click", clearLocalStorage);
 
+// function removeTask(array, taskId) {
+//     return array.splice(taskId, 1);
+// }
