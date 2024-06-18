@@ -4,27 +4,34 @@ const taskList = document.querySelector("#taskList");
 const projectNameInput = document.querySelector("#projectName");
 const projectDateInput = document.querySelector("#projectDate");
 const projectStatusInput = document.querySelector("#projectStatus");
-const addProjectButton = document.querySelector("#addProject");
+const availableProjects = document.querySelector("#availableProjects");
 
 //task selectors
 const taskNameInput = document.querySelector("#taskName");
 const taskTextInput = document.querySelector("#taskText");
 const taskDateInput = document.querySelector("#taskDate");
 const taskStatusInput = document.querySelector("#taskStatus");
-const addTaskButton = document.querySelector("#addTask");
 
+//button selectors
+const addProjectButton = document.querySelector("#addProject");
+const addTaskButton = document.querySelector("#addTask");
 const clearLocalStorageButton = document.querySelector("#clearLocalStorage");
 
 //---------------------------------------------------------------------------
-
 let customTaskIndex = -1;
+let customProjectIndex = -1;
 
-let tasksArray = localStorage.getItem("tasks") ?
-    JSON.parse(localStorage.getItem('tasks')) : [];
-console.table(tasksArray);
+let appStorage = localStorage.getItem("appStorage") ?
+    JSON.parse(localStorage.getItem('appStorage')) : [];
 
-tasksArray.forEach((item) => addDomTask(item.projectName, item.taskName, item.text, item.date, item.status));
+//------------------------DOM------------------------
+// for (let i in appStorage) {
+//     let nameOption = document.createElement("option");
+//     nameOption.value = appStorage[i].projectName;
+//     availableProjects.appendChild(nameOption);
+// }
 
+appStorage.forEach((item) => addDomTask(item.projectName, item.taskName, item.text, item.date, item.status));
 function createATaskDiv(projectName, taskName, text, date, status) {
     const taskDiv = document.createElement('div');
     taskDiv.setAttribute('id', `taskID_${customTaskIndex}`);
@@ -65,21 +72,16 @@ function createATaskDiv(projectName, taskName, text, date, status) {
     taskDiv.appendChild(deleteTaskBtn);
     return taskDiv;
 }
-
-function Task(projectName, taskName, text, date, status) {
-    customTaskIndex++;
-    return {
-        customTaskIndex,
-        projectName,
-        taskName,
-        text,
-        date,
-        status,
-    }
+function addDomTask(projectName, taskName, text, date, status) {
+    taskList.appendChild(createATaskDiv(projectName, taskName, text, date, status))
 }
 
-function createProject(projectName, dueDate, status) {
+//------------------------BACK-----------------------
+
+function Project(projectName, dueDate, status) {
+    customProjectIndex++;
     return {
+        customProjectIndex,
         projectName,
         dueDate,
         status,
@@ -87,7 +89,7 @@ function createProject(projectName, dueDate, status) {
     }
 }
 
-function addTask(taskName, text, date, status) {
+function Task(taskName, text, date, status) {
     customTaskIndex++;
     return {
         customTaskIndex,
@@ -98,41 +100,25 @@ function addTask(taskName, text, date, status) {
     }
 }
 
-function addDomTask(projectName, taskName, text, date, status) {
-    //console.log(projectName);
-   taskList.appendChild(createATaskDiv(projectName, taskName, text, date, status))
-}
-
-
-function createATask() {
-    let tempTask = Task(projectNameInput.value, taskNameInput.value, taskTextInput.value, taskDateInput.value, taskStatusInput.value);
-
-    tasksArray.push(tempTask);
-    localStorage.setItem("tasks", JSON.stringify(tasksArray));
-    addDomTask(projectNameInput.value, taskNameInput.value, taskTextInput.value, taskDateInput.value, taskStatusInput.value);
-    taskNameInput.value = "";
-}
-
-
 function createAProject() {
-    let tempProject = createProject(projectNameInput.value, projectDateInput.value, projectStatusInput.value);
-    tasksArray.push(tempProject);
-    localStorage.setItem("tasks", JSON.stringify(tasksArray));
+    appStorage.push(Project(projectNameInput.value, projectDateInput.value, projectStatusInput.value));
+    localStorage.setItem("appStorage", JSON.stringify(appStorage));
     projectNameInput.value = "";
 }
 
-
-
+function createATask() {
+    appStorage[0].taskList.push(Task(taskNameInput.value, taskTextInput.value, taskDateInput.value, taskStatusInput.value));
+    localStorage.setItem("appStorage", JSON.stringify(appStorage));
+    addDomTask(projectNameInput.value, taskNameInput.value, taskTextInput.value, taskDateInput.value, taskStatusInput.value);
+    taskNameInput.value = "";
+}
 
 function clearLocalStorage() {
     localStorage.clear();
     taskList.textContent = "";
 }
-
-
 addTaskButton.addEventListener("click", createATask);
 addProjectButton.addEventListener("click", createAProject);
-
 clearLocalStorageButton.addEventListener("click", clearLocalStorage);
 
 // function removeTask(array, taskId) {
