@@ -1,3 +1,8 @@
+const projectNameInput = document.querySelector("#projectName");
+const projectDateInput = document.querySelector("#projectDate");
+const projectStatusInput = document.querySelector("#projectStatus");
+const addProjectButton = document.querySelector("#addProject");
+
 let customTaskIndex = -1;
 let customProjectIndex = -1;
 let appStorage = localStorage.getItem("appStorage") ?
@@ -14,8 +19,8 @@ function Project(projectName, dueDate, status) {
     }
 }
 
-function createAProject(projectNameInput, projectDateInput, projectStatusInput) {
-    appStorage.push(Project(projectNameInput, projectDateInput, projectStatusInput));
+function createAProject() {
+    appStorage.push(Project(projectNameInput.value, projectDateInput.value, projectStatusInput.value));
     localStorage.setItem("appStorage", JSON.stringify(appStorage));
 }
 
@@ -59,3 +64,4 @@ function clearLocalStorage() {
     localStorage.clear();
 }
 
+addProjectButton.addEventListener("click", createAProject);

@@ -5,10 +5,83 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>to-do</title>
+    <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+        * {box-sizing: border-box;}
+
+        /* Button used to open the contact form - fixed at the bottom of the page */
+        .open-button {
+            background-color: #555;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            opacity: 0.8;
+            position: fixed;
+            bottom: 23px;
+            right: 28px;
+            width: 280px;
+        }
+
+        /* The popup form - hidden by default */
+        .form-popup {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            right: 15px;
+            border: 3px solid #f1f1f1;
+            z-index: 9;
+        }
+
+        /* Add styles to the form container */
+        .form-container {
+            max-width: 300px;
+            padding: 10px;
+            background-color: white;
+        }
+
+        /* Full-width input fields */
+        .form-container input[type=text], .form-container input[type=password] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+        }
+
+        /* When the inputs get focus, do something */
+        .form-container input[type=text]:focus, .form-container input[type=password]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+        /* Set a style for the submit/login button */
+        .form-container .btn {
+            background-color: #04AA6D;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom:10px;
+            opacity: 0.8;
+        }
+
+        /* Add a red background color to the cancel button */
+        .form-container .cancel {
+            background-color: red;
+        }
+
+        /* Add some hover effects to buttons */
+        .form-container .btn:hover, .open-button:hover {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
-<script src="app.js"></script>
+
+
 <button onclick="console.log(localStorage)">localStorage</button>
 <button onclick="console.table(appStorage)">appStorage</button>
 <button onclick="console.table(appStorage[0].taskList)">log taskList</button>
@@ -26,16 +99,15 @@
 
 <hr>
 
-<div id="dataEntry">
-    <div id="projectEntry">
+<button class="open-button" onclick="openForm()">add project</button>
+
+<div class="form-popup" id="projectEntry">
+    <div class="form-container">
         <label for="projectName" class="visually-hidden">project name</label>
-        <input type="text" id="projectName" name="projectName" placeholder="project name" list="availableProjects">
-        <datalist id="availableProjects">
-            <option value="single-tasks"></option>
-        </datalist>
-        <label for="projectDate" class="visually-hidden">Project due date</label>
+        <input type="text" id="projectName" name="projectName" placeholder="project">
+        <label for="projectDate" class="visually-hidden">due</label>
         <input type="date" id="projectDate" name="projectDate">
-        <label for="projectStatus" class="visually-hidden">select status:</label>
+        <label for="projectStatus" class="visually-hidden">status</label>
         <select id="projectStatus" name="projectStatus" required>
             <option value="notStarted">Not started</option>
             <option value="inProgress">In progress</option>
@@ -43,30 +115,44 @@
             <option value="cancelled">Cancelled</option>
         </select>
         <button id="addProject">add project</button>
-    </div>
-    <div id="taskEntry">
-        <label for="taskName" class="visually-hidden">task name:</label>
-        <input type="text" id="taskName" name="taskName" placeholder="task name" required>
-        <label for="taskText" class="visually-hidden">task note:</label>
-        <input type="text" id="taskText" name="taskText" placeholder="task note" required>
-        <label for="taskDate" class="visually-hidden">due date:</label>
-        <input type="date" id="taskDate" name="taskDate" placeholder="due date" required>
-        <label for="taskStatus" class="visually-hidden">select status:</label>
-        <select id="taskStatus" name="taskStatus" required>
-            <option value="notStarted">Not started</option>
-            <option value="inProgress">In progress</option>
-            <option value="done">Done</option>
-            <option value="cancelled">Cancelled</option>
-        </select>
-        <button id="addTask">add task</button>
+        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
     </div>
 </div>
-<br>
+
+
+<!--    <div id="taskEntry">-->
+<!--        <label for="taskName" class="visually-hidden">task name:</label>-->
+<!--        <input type="text" id="taskName" name="taskName" placeholder="task name" required>-->
+<!--        <label for="taskText" class="visually-hidden">task note:</label>-->
+<!--        <input type="text" id="taskText" name="taskText" placeholder="task note" required>-->
+<!--        <label for="taskDate" class="visually-hidden">due date:</label>-->
+<!--        <input type="date" id="taskDate" name="taskDate" placeholder="due date" required>-->
+<!--        <label for="taskStatus" class="visually-hidden">select status:</label>-->
+<!--        <select id="taskStatus" name="taskStatus" required>-->
+<!--            <option value="notStarted">Not started</option>-->
+<!--            <option value="inProgress">In progress</option>-->
+<!--            <option value="done">Done</option>-->
+<!--            <option value="cancelled">Cancelled</option>-->
+<!--        </select>-->
+<!--        <button id="addTask">add task</button>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+<hr>
 <div><h3>task list:</h3>
     <div id="taskList"></div>
 </div>
 
+<script>
+    function openForm() {
+        document.getElementById("projectEntry").style.display = "block";
+    }
 
-
+    function closeForm() {
+        document.getElementById("projectEntry").style.display = "none";
+    }
+</script>
+<script src="app.js"></script>
 </body>
 </html>
