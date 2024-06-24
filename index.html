@@ -5,45 +5,27 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="style.css" rel="stylesheet" type="text/css">
-    <title>tasks manager</title>
-    <script src="app.js" defer></script>
-    <style>
-        /*select, button, input {*/
-        /*    background: wheat;*/
-        /*}*/
-        /*body {*/
-        /*    background: #2e2e2e;*/
-        /*    color: wheat;*/
-        /*}*/
-
-        .visually-hidden {
-            border: 0;
-            padding: 0;
-            margin: 0;
-            position: absolute !important;
-            height: 1px;
-            width: 1px;
-            overflow: hidden;
-            clip: rect(1px 1px 1px 1px); /* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
-            clip: rect(1px, 1px, 1px, 1px); /*maybe deprecated but we need to support legacy browsers */
-            clip-path: inset(50%); /*modern browsers, clip-path works inwards from each corner*/
-            white-space: nowrap; /* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
-        }
-
-        #dataEntry {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            padding: 15px;
-        }
-
-        #clearLocalStorage {
-            margin-top: 100px;
-        }
-    </style>
+    <title>Document</title>
 </head>
 <body>
+<script src="app.js"></script>
+<button onclick="console.log(localStorage)">localStorage</button>
+<button onclick="console.table(appStorage)">appStorage</button>
+<button onclick="console.table(appStorage[0].taskList)">log taskList</button>
+<br>
+<button onclick="createAProject('test project', '2024-06-19', 'in-progress');">add project</button>
+<button onclick="createATask(0, 'taskName', 'taskTextInput', 'taskDateInput', 'taskStatusInput')">add task</button>
+<br>
+<button onclick="amendProjectDetails(0, 'dueDate', '2025-06-19')">amend project</button>
+<button onclick="amendTaskDetails(0, 1, 'taskName', 'latest name')">amend task</button>
+<br>
+<button onclick="removeProject(2)">delete project</button>
+<button onclick="removeTask(0, 0)">delete task</button>
+<br>
+<button onclick="clearLocalStorage()">clear storage</button>
+
+<hr>
+
 <div id="dataEntry">
     <div id="projectEntry">
         <label for="projectName" class="visually-hidden">project name</label>
@@ -83,9 +65,8 @@
 <div><h3>task list:</h3>
     <div id="taskList"></div>
 </div>
-<button id="clearLocalStorage">Clear Local Storage</button>
+
+
+
 </body>
 </html>
-
-
-
