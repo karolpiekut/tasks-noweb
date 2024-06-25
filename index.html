@@ -7,82 +7,91 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>to-do</title>
     <link rel="stylesheet" href="style.css" type="text/css">
-
 </head>
 <body>
-<button onclick="console.log(localStorage)">localStorage</button>
-<button onclick="console.table(appStorage)">appStorage</button>
-<button onclick="console.table(appStorage[0].taskList)">log taskList</button>
-<br>
-<button onclick="createAProject('test project', '2024-06-19', 'in-progress');">add project</button>
-<button onclick="createATask(0, 'taskName', 'taskTextInput', 'taskDateInput', 'taskStatusInput')">add task</button>
-<br>
-<button onclick="amendProjectDetails(0, 'dueDate', '2025-06-19')">amend project</button>
-<button onclick="amendTaskDetails(0, 1, 'taskName', 'latest name')">amend task</button>
-<br>
-<button onclick="removeProject(2)">delete project</button>
-<button onclick="removeTask(0, 0)">delete task</button>
-<br>
-<button onclick="clearLocalStorage()">clear storage</button>
-
-<hr>
-
-<button class="open-button" onclick="openForm()">add project</button>
-
-<div class="form-popup" id="projectEntry">
-    <div class="form-container">
-        <div id="formInputFields">
-            <div id="inputProjectNameDiv"><label hidden for="projectName">project name</label>
-                <input type="text" id="projectName" name="projectName" placeholder="project"></div>
-            <div id="inputProjectDateDiv"><label hidden for="projectDate">due</label>
-                <input type="date" id="projectDate" name="projectDate"></div>
-            <div id="inputProjectStatusDiv"><label hidden for="projectStatus">status</label>
-                <select id="projectStatus" name="projectStatus" required>
-                    <option value="notStarted">Not started</option>
-                    <option value="inProgress">In progress</option>
-                    <option value="done">Done</option>
-                    <option value="cancelled">Cancelled</option>
-                </select></div>
+<div id="appBody">
+    <div id="projectList">
+        <h4>All projects</h4>
+        <h5>project 1</h5>
+        <h5>project 2</h5>
+    </div>
+    <div id="taskList">
+        <h4>Tasks</h4>
+        <div class="individualTask">
+            <h5 class="taskNameClass">task name</h5>
+            <time class="taskDateClass" datetime="2024-06-27">2024-06-27</time>
+            <p class="taskStatusClass">in-progress</p>
+            <button class="taskCompleteButtonClass">complete</button>
+            <button class="taskDeleteButtonClass">delete</button>
         </div>
-        <button id="addProject" class="btn">add project</button>
-        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        <div class="individualTask">
+            <h5 class="taskNameClass">task name1</h5>
+            <time class="taskDateClass" datetime="2024-06-27">2024-06-27</time>
+            <p class="taskStatusClass">in-progress</p>
+            <button class="taskCompleteButtonClass">complete</button>
+            <button class="taskDeleteButtonClass">delete</button>
+        </div>
+        <div class="individualTask">
+            <h5 class="taskNameClass">task name2</h5>
+            <time class="taskDateClass" datetime="2024-06-27">2024-06-27</time>
+            <p class="taskStatusClass">in-progress</p>
+            <button class="taskCompleteButtonClass">complete</button>
+            <button class="taskDeleteButtonClass">delete</button>
+        </div>
+        <div id="taskEntry">
+            <label for="taskName" hidden="">task name:</label>
+            <input type="text" id="taskName" name="taskName" placeholder="task name" required>
+            <label for="taskDate" hidden>due date:</label>
+            <input type="date" id="taskDate" name="taskDate" placeholder="due date" required>
+            <label for="taskStatus" hidden>select status:</label>
+            <select id="taskStatus" name="taskStatus" required>
+                <option value="notStarted">Not started</option>
+                <option value="inProgress">In progress</option>
+                <option value="done">Done</option>
+                <option value="cancelled">Cancelled</option>
+            </select>
+            <button id="addTask">add task</button>
+        </div>
+    </div>
+    </div>
+<div id="addProjectSection">
+    <button class="open-button" onclick="openForm()">add project</button>
+    <div class="form-popup" id="projectEntry">
+        <div class="form-container">
+            <div id="formInputFields">
+                <div id="inputProjectNameDiv"><label hidden for="projectName">project name</label>
+                    <input type="text" id="projectName" name="projectName" placeholder="project"></div>
+                <div id="inputProjectDateDiv"><label hidden for="projectDate">due</label>
+                    <input type="date" id="projectDate" name="projectDate"></div>
+                <div id="inputProjectStatusDiv"><label hidden for="projectStatus">status</label>
+                    <select id="projectStatus" name="projectStatus" required>
+                        <option value="notStarted">Not started</option>
+                        <option value="inProgress">In progress</option>
+                        <option value="done">Done</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select></div>
+            </div>
+            <button id="addProject" class="btn">add project</button>
+            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </div>
     </div>
 </div>
-
-
-<!--    <div id="taskEntry">-->
-<!--        <label for="taskName" class="visually-hidden">task name:</label>-->
-<!--        <input type="text" id="taskName" name="taskName" placeholder="task name" required>-->
-<!--        <label for="taskText" class="visually-hidden">task note:</label>-->
-<!--        <input type="text" id="taskText" name="taskText" placeholder="task note" required>-->
-<!--        <label for="taskDate" class="visually-hidden">due date:</label>-->
-<!--        <input type="date" id="taskDate" name="taskDate" placeholder="due date" required>-->
-<!--        <label for="taskStatus" class="visually-hidden">select status:</label>-->
-<!--        <select id="taskStatus" name="taskStatus" required>-->
-<!--            <option value="notStarted">Not started</option>-->
-<!--            <option value="inProgress">In progress</option>-->
-<!--            <option value="done">Done</option>-->
-<!--            <option value="cancelled">Cancelled</option>-->
-<!--        </select>-->
-<!--        <button id="addTask">add task</button>-->
-<!--    </div>-->
-<!--</div>-->
-
-
-<hr>
-<div><h3>task list:</h3>
-    <div id="taskList"></div>
+<div id="testButtons">
+    <hr>
+    <hr>
+    <button onclick="console.log(localStorage)">localStorage</button>
+    <button onclick="console.table(appStorage)">appStorage</button>
+    <button onclick="console.table(appStorage[0].taskList)">log taskList</button>
+    <button onclick="createAProject('test project', '2024-06-19', 'in-progress');">add project</button>
+    <button onclick="createATask(0, 'taskName', 'taskTextInput', 'taskDateInput', 'taskStatusInput')">add task
+    </button>
+    <button onclick="amendProjectDetails(0, 'dueDate', '2025-06-19')">amend project</button>
+    <button onclick="amendTaskDetails(0, 1, 'taskName', 'latest name')">amend task</button>
+    <button onclick="removeProject(2)">delete project</button>
+    <button onclick="removeTask(0, 0)">delete task</button>
+    <button onclick="clearLocalStorage()">clear storage</button>
 </div>
 
-<script>
-    function openForm() {
-        document.getElementById("projectEntry").style.display = "block";
-    }
-
-    function closeForm() {
-        document.getElementById("projectEntry").style.display = "none";
-    }
-</script>
 <script src="app.js"></script>
 </body>
 </html>

@@ -3,6 +3,11 @@ const projectDateInput = document.querySelector("#projectDate");
 const projectStatusInput = document.querySelector("#projectStatus");
 const addProjectButton = document.querySelector("#addProject");
 
+const taskNameInput = document.querySelector("#taskName");
+const taskDateInput = document.querySelector("#taskDate");
+const taskStatusInput = document.querySelector("#taskStatus");
+const addTaskButton = document.querySelector("#addTask");
+
 let customTaskIndex = -1;
 let customProjectIndex = -1;
 let appStorage = localStorage.getItem("appStorage") ?
@@ -24,19 +29,19 @@ function createAProject() {
     localStorage.setItem("appStorage", JSON.stringify(appStorage));
 }
 
-function Task(taskName, text, date, status) {
+function Task(taskName, date, status) {
     customTaskIndex++;
     return {
         customTaskIndex,
         taskName,
-        text,
         date,
         status,
     }
 }
 
-function createATask(taskId, taskNameInput, taskTextInput, taskDateInput, taskStatusInput) {
-    appStorage[taskId].taskList.push(Task(taskNameInput, taskTextInput, taskDateInput, taskStatusInput));
+function createATask() {
+    //appStorage[projectId].taskList.push(Task(taskNameInput.value, taskDateInput.value, taskStatusInput.value));
+    appStorage[0].taskList.push(Task(taskNameInput.value, taskDateInput.value, taskStatusInput.value));
     localStorage.setItem("appStorage", JSON.stringify(appStorage));
 }
 
@@ -64,4 +69,13 @@ function clearLocalStorage() {
     localStorage.clear();
 }
 
+function openForm() {
+    document.getElementById("projectEntry").style.display = "block";
+}
+
+function closeForm() {
+    document.getElementById("projectEntry").style.display = "none";
+}
+
 addProjectButton.addEventListener("click", createAProject);
+addTaskButton.addEventListener("click", createATask);
