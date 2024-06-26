@@ -32,12 +32,20 @@ body {font-family: Arial, Helvetica, sans-serif;}
 }
 .taskStatusClass {
 }
-.taskCompleteButtonClass{
+.taskCompleteButtonClass, .taskDeleteButtonClass{
+    width: 30px;
+    height: 30px;
+    border: none;
+    opacity: 0.8;
+    color: white;
 }
-.taskDeleteButtonClass{
+.taskDeleteButtonClass {
+    background: orange;
 }
 
-
+.taskCompleteButtonClass {
+    background: #04AA6D;
+}
 
 /* Button used to open the contact form - fixed at the bottom of the page */
 .open-button {
@@ -100,8 +108,12 @@ body {font-family: Arial, Helvetica, sans-serif;}
     background-color: orange;
 }
 
-.form-container .btn:hover, .open-button:hover {
+.form-container .btn:hover, .open-button:hover, .taskCompleteButtonClass:hover, .taskDeleteButtonClass:hover {
     opacity: 1;
+}
+
+.taskDeleteButtonClass:hover {
+    background: red;
 }
 
 #formInputFields {
@@ -121,4 +133,18 @@ body {font-family: Arial, Helvetica, sans-serif;}
 #projectName {
     margin-bottom: 5px;
     width: 184px;
+}
+
+#taskName, #taskDate, #taskStatus {
+    height: 30px;
+    width: 120px;
+}
+
+#taskName {
+    width: 200px
+}
+
+#addTask {
+    width: 100px;
+    height: 30px;
 }

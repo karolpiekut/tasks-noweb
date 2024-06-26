@@ -79,3 +79,4 @@ function closeForm() {
 
 addProjectButton.addEventListener("click", createAProject);
 addTaskButton.addEventListener("click", createATask);
+
