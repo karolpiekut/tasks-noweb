@@ -11,32 +11,91 @@
 <body>
 <div id="appBody">
     <div id="projectList">
-        <h4>All projects</h4>
-        <h5>project 1</h5>
-        <h5>project 2</h5>
+        <div id="activeProjects"><h4 id="allProjectsSelect">All projects</h4>
+            <h5 class="projectListSelect">project 1</h5>
+            <h5 class="projectListSelect">project 2</h5>
+        </div>
+        <div id="archiveSection">
+            <h4 id="archivedProjectsSelect">Archive</h4>
+        </div>
     </div>
+
     <div id="taskList">
-        <h4>Tasks</h4>
+        <h4 id="selectedProjectName">Project 1</h4>
         <div class="individualTask">
             <h5 class="taskNameClass">task name</h5>
             <time class="taskDateClass" datetime="2024-06-27">2024-06-27</time>
             <p class="taskStatusClass">in-progress</p>
-            <button class="taskCompleteButtonClass"><?xml version="1.0" encoding="UTF-8"?><svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#FFFFFFFF"><path d="M5 13L9 17L19 7" stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
-            <button class="taskDeleteButtonClass"><?xml version="1.0" encoding="UTF-8"?><svg width="24px" height="24px" viewBox="0 0 24 24" stroke-width="1.5" fill="none" xmlns="http://www.w3.org/2000/svg" color="#FFFFFFFF"><path d="M20 9L18.005 20.3463C17.8369 21.3026 17.0062 22 16.0353 22H7.96474C6.99379 22 6.1631 21.3026 5.99496 20.3463L4 9" stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M21 6L15.375 6M3 6L8.625 6M8.625 6V4C8.625 2.89543 9.52043 2 10.625 2H13.375C14.4796 2 15.375 2.89543 15.375 4V6M8.625 6L15.375 6" stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+            <div class="taskButtons">
+                <button class="taskCompleteButtonClass"><?xml version="1.0" encoding="UTF-8"?>
+                    <svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                         xmlns="http://www.w3.org/2000/svg" color="#FFFFFFFF">
+                        <path d="M5 13L9 17L19 7" stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round"
+                              stroke-linejoin="round"></path>
+                    </svg>
+                </button>
+                <button class="taskDeleteButtonClass"><?xml version="1.0" encoding="UTF-8"?>
+                    <svg width="24px" height="24px" viewBox="0 0 24 24" stroke-width="1.5" fill="none"
+                         xmlns="http://www.w3.org/2000/svg" color="#FFFFFFFF">
+                        <path d="M20 9L18.005 20.3463C17.8369 21.3026 17.0062 22 16.0353 22H7.96474C6.99379 22 6.1631 21.3026 5.99496 20.3463L4 9"
+                              stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round"
+                              stroke-linejoin="round"></path>
+                        <path d="M21 6L15.375 6M3 6L8.625 6M8.625 6V4C8.625 2.89543 9.52043 2 10.625 2H13.375C14.4796 2 15.375 2.89543 15.375 4V6M8.625 6L15.375 6"
+                              stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round"
+                              stroke-linejoin="round"></path>
+                    </svg>
+                </button>
+            </div>
         </div>
         <div class="individualTask">
             <h5 class="taskNameClass">task name1</h5>
             <time class="taskDateClass" datetime="2024-06-27">2024-06-27</time>
             <p class="taskStatusClass">in-progress</p>
-            <button class="taskCompleteButtonClass"><?xml version="1.0" encoding="UTF-8"?><svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#FFFFFFFF"><path d="M5 13L9 17L19 7" stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
-            <button class="taskDeleteButtonClass"><?xml version="1.0" encoding="UTF-8"?><svg width="24px" height="24px" viewBox="0 0 24 24" stroke-width="1.5" fill="none" xmlns="http://www.w3.org/2000/svg" color="#FFFFFFFF"><path d="M20 9L18.005 20.3463C17.8369 21.3026 17.0062 22 16.0353 22H7.96474C6.99379 22 6.1631 21.3026 5.99496 20.3463L4 9" stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M21 6L15.375 6M3 6L8.625 6M8.625 6V4C8.625 2.89543 9.52043 2 10.625 2H13.375C14.4796 2 15.375 2.89543 15.375 4V6M8.625 6L15.375 6" stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+            <div class="taskButtons">
+                <button class="taskCompleteButtonClass"><?xml version="1.0" encoding="UTF-8"?>
+                    <svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                         xmlns="http://www.w3.org/2000/svg" color="#FFFFFFFF">
+                        <path d="M5 13L9 17L19 7" stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round"
+                              stroke-linejoin="round"></path>
+                    </svg>
+                </button>
+                <button class="taskDeleteButtonClass"><?xml version="1.0" encoding="UTF-8"?>
+                    <svg width="24px" height="24px" viewBox="0 0 24 24" stroke-width="1.5" fill="none"
+                         xmlns="http://www.w3.org/2000/svg" color="#FFFFFFFF">
+                        <path d="M20 9L18.005 20.3463C17.8369 21.3026 17.0062 22 16.0353 22H7.96474C6.99379 22 6.1631 21.3026 5.99496 20.3463L4 9"
+                              stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round"
+                              stroke-linejoin="round"></path>
+                        <path d="M21 6L15.375 6M3 6L8.625 6M8.625 6V4C8.625 2.89543 9.52043 2 10.625 2H13.375C14.4796 2 15.375 2.89543 15.375 4V6M8.625 6L15.375 6"
+                              stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round"
+                              stroke-linejoin="round"></path>
+                    </svg>
+                </button>
+            </div>
         </div>
         <div class="individualTask">
             <h5 class="taskNameClass">task name2</h5>
             <time class="taskDateClass" datetime="2024-06-27">2024-06-27</time>
             <p class="taskStatusClass">in-progress</p>
-            <button class="taskCompleteButtonClass"><?xml version="1.0" encoding="UTF-8"?><svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#FFFFFFFF"><path d="M5 13L9 17L19 7" stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
-            <button class="taskDeleteButtonClass"><?xml version="1.0" encoding="UTF-8"?><svg width="24px" height="24px" viewBox="0 0 24 24" stroke-width="1.5" fill="none" xmlns="http://www.w3.org/2000/svg" color="#FFFFFFFF"><path d="M20 9L18.005 20.3463C17.8369 21.3026 17.0062 22 16.0353 22H7.96474C6.99379 22 6.1631 21.3026 5.99496 20.3463L4 9" stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M21 6L15.375 6M3 6L8.625 6M8.625 6V4C8.625 2.89543 9.52043 2 10.625 2H13.375C14.4796 2 15.375 2.89543 15.375 4V6M8.625 6L15.375 6" stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+            <div class="taskButtons">
+                <button class="taskCompleteButtonClass"><?xml version="1.0" encoding="UTF-8"?>
+                    <svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                         xmlns="http://www.w3.org/2000/svg" color="#FFFFFFFF">
+                        <path d="M5 13L9 17L19 7" stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round"
+                              stroke-linejoin="round"></path>
+                    </svg>
+                </button>
+                <button class="taskDeleteButtonClass"><?xml version="1.0" encoding="UTF-8"?>
+                    <svg width="24px" height="24px" viewBox="0 0 24 24" stroke-width="1.5" fill="none"
+                         xmlns="http://www.w3.org/2000/svg" color="#FFFFFFFF">
+                        <path d="M20 9L18.005 20.3463C17.8369 21.3026 17.0062 22 16.0353 22H7.96474C6.99379 22 6.1631 21.3026 5.99496 20.3463L4 9"
+                              stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round"
+                              stroke-linejoin="round"></path>
+                        <path d="M21 6L15.375 6M3 6L8.625 6M8.625 6V4C8.625 2.89543 9.52043 2 10.625 2H13.375C14.4796 2 15.375 2.89543 15.375 4V6M8.625 6L15.375 6"
+                              stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round"
+                              stroke-linejoin="round"></path>
+                    </svg>
+                </button>
+            </div>
         </div>
         <div id="taskEntry">
             <label for="taskName" hidden="">task name:</label>
@@ -53,29 +112,30 @@
             <button id="addTask">add task</button>
         </div>
     </div>
-    </div>
-<div id="addProjectSection">
-    <button class="open-button" onclick="openForm()">add project</button>
-    <div class="form-popup" id="projectEntry">
-        <div class="form-container">
-            <div id="formInputFields">
-                <div id="inputProjectNameDiv"><label hidden for="projectName">project name</label>
-                    <input type="text" id="projectName" name="projectName" placeholder="project"></div>
-                <div id="inputProjectDateDiv"><label hidden for="projectDate">due</label>
-                    <input type="date" id="projectDate" name="projectDate"></div>
-                <div id="inputProjectStatusDiv"><label hidden for="projectStatus">status</label>
-                    <select id="projectStatus" name="projectStatus" required>
-                        <option value="notStarted">Not started</option>
-                        <option value="inProgress">In progress</option>
-                        <option value="done">Done</option>
-                        <option value="cancelled">Cancelled</option>
-                    </select></div>
+    <div id="addProjectSection">
+        <button class="open-button" onclick="openForm()">add project</button>
+        <div class="form-popup" id="projectEntry">
+            <div class="form-container">
+                <div id="formInputFields">
+                    <div id="inputProjectNameDiv"><label hidden for="projectName">project name</label>
+                        <input type="text" id="projectName" name="projectName" placeholder="project"></div>
+                    <div id="inputProjectDateDiv"><label hidden for="projectDate">due</label>
+                        <input type="date" id="projectDate" name="projectDate"></div>
+                    <div id="inputProjectStatusDiv"><label hidden for="projectStatus">status</label>
+                        <select id="projectStatus" name="projectStatus" required>
+                            <option value="notStarted">Not started</option>
+                            <option value="inProgress">In progress</option>
+                            <option value="done">Done</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select></div>
+                </div>
+                <button id="addProject" class="btn">add project</button>
+                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
             </div>
-            <button id="addProject" class="btn">add project</button>
-            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
         </div>
     </div>
 </div>
+
 <div id="testButtons">
     <hr>
     <hr>

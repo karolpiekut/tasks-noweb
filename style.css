@@ -1,22 +1,29 @@
-body {font-family: Arial, Helvetica, sans-serif;}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
 * {box-sizing: border-box;}
 
 #appBody {
     background: lightgrey;
-    width: 100%;
+    width: 1200px;
     height: 750px;
     display: flex;
     flex-direction: row;
+    margin: auto
 }
 
 #projectList {
     width: 15%;
-    background: azure;
+    background: #f3f3f4;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 #taskList {
     width: 85%;
-    background: antiquewhite;
+
+    background: #f3f3f4;
 }
 
 .individualTask {
@@ -25,12 +32,20 @@ body {font-family: Arial, Helvetica, sans-serif;}
     gap: 5px;
     align-items: center;
     height: 40px;
+    border-bottom: solid 1px #cecece;
+    border-top: solid 1px #cecece;
+    border-collapse: collapse;
+    margin: -1px 0 0 -1px;
 }
 .taskNameClass {
+    margin-left: 10px;
+    width: 400px;
 }
 .taskDateClass {
+    width: 120px;
 }
 .taskStatusClass {
+    width: 120px;
 }
 .taskCompleteButtonClass, .taskDeleteButtonClass{
     width: 30px;
@@ -38,6 +53,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
     border: none;
     opacity: 0.8;
     color: white;
+    display: flex;
+    justify-content: center;
 }
 .taskDeleteButtonClass {
     background: orange;
@@ -47,6 +64,14 @@ body {font-family: Arial, Helvetica, sans-serif;}
     background: #04AA6D;
 }
 
+.taskButtons{
+    width: 100px;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+}
 /* Button used to open the contact form - fixed at the bottom of the page */
 .open-button {
     background-color: #555;
@@ -56,8 +81,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
     cursor: pointer;
     opacity: 0.8;
     position: fixed;
-    bottom: 23px;
-    right: 28px;
+
+    left: 1118px;
+    top: 695px;
+    /*bottom: 23px;*/
+    /*right: 28px;*/
     width: 184px;
 }
 
@@ -65,8 +93,12 @@ body {font-family: Arial, Helvetica, sans-serif;}
 .form-popup {
     display: none;
     position: fixed;
-    bottom: 0;
-    right: 15px;
+
+    /*bottom: 0;*/
+    /*right: 15px;*/
+    left: 1105px;
+    top: 514px;
+
     border: 3px solid #f1f1f1;
     z-index: 9;
 }
@@ -138,13 +170,44 @@ body {font-family: Arial, Helvetica, sans-serif;}
 #taskName, #taskDate, #taskStatus {
     height: 30px;
     width: 120px;
+    line-height: 30px;
+    background: white;
+    border: none;
+
 }
 
 #taskName {
-    width: 200px
+    width: 400px;
+    margin-left: 5px;
+    padding-left: 5px;
 }
 
 #addTask {
     width: 100px;
     height: 30px;
+    margin-left: 5px;
+}
+
+#taskStatus{
+    border: none;
+}
+
+#taskEntry {
+    margin-top: 10px;
+}
+
+#selectedProjectName {
+    margin-left: 10px;
+    font-size: large;
+}
+
+#allProjectsSelect, #archivedProjectsSelect {
+    font-size: large;
+    margin-left: 10px;
+
+}
+
+.projectListSelect {
+    font-size: medium;
+    margin-left: 10px;
 }
