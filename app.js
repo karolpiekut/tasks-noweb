@@ -15,11 +15,13 @@ let appStorage = localStorage.getItem("appStorage") ?
 
 function Project(projectName, dueDate, status) {
     customProjectIndex++;
+    let archiveStatus = 0;
     return {
         customProjectIndex,
         projectName,
         dueDate,
         status,
+        archiveStatus,
         taskList: [],
     }
 }
