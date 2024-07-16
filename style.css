@@ -6,8 +6,9 @@ body {
 #appBody {
     margin: 8px auto auto auto;
     background: lightgrey;
-    width: 1200px;
-    height: 780px;
+    width: 98vw;
+    /*height: 780px;*/
+    height: 98vh;
     display: flex;
     flex-direction: row;
 }
@@ -213,7 +214,6 @@ body {
 #allProjectsSelect, #archivedProjectsSelect {
     font-size: large;
     margin-left: 10px;
-
 }
 
 .projectListSelect {

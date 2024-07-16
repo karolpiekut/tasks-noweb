@@ -17,6 +17,28 @@
         </div>
         <div id="archiveSection">
             <h4 id="archivedProjectsSelect">Archive</h4>
+            <div id="addProjectSection">
+                <button class="open-button" onclick="openForm()">add project</button>
+                <div class="form-popup" id="projectEntry">
+                    <div class="form-container">
+                        <div id="formInputFields">
+                            <div id="inputProjectNameDiv"><label hidden for="projectName">project name</label>
+                                <input type="text" id="projectName" name="projectName" placeholder="project"></div>
+                            <div id="inputProjectDateDiv"><label hidden for="projectDate">due</label>
+                                <input type="date" id="projectDate" name="projectDate"></div>
+                            <div id="inputProjectStatusDiv"><label hidden for="projectStatus">status</label>
+                                <select id="projectStatus" name="projectStatus" required>
+                                    <option value="notStarted">Not started</option>
+                                    <option value="inProgress">In progress</option>
+                                    <option value="done">Done</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select></div>
+                        </div>
+                        <button id="addProject" class="btn">add project</button>
+                        <button type="button" class="btn cancel" onclick="closeForm()">close</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div id="taskList">
@@ -109,28 +131,6 @@
                 <option value="cancelled">Cancelled</option>
             </select>
             <button id="addTask">add task</button>
-        </div>
-    </div>
-    <div id="addProjectSection">
-        <button class="open-button" onclick="openForm()">add project</button>
-        <div class="form-popup" id="projectEntry">
-            <div class="form-container">
-                <div id="formInputFields">
-                    <div id="inputProjectNameDiv"><label hidden for="projectName">project name</label>
-                        <input type="text" id="projectName" name="projectName" placeholder="project"></div>
-                    <div id="inputProjectDateDiv"><label hidden for="projectDate">due</label>
-                        <input type="date" id="projectDate" name="projectDate"></div>
-                    <div id="inputProjectStatusDiv"><label hidden for="projectStatus">status</label>
-                        <select id="projectStatus" name="projectStatus" required>
-                            <option value="notStarted">Not started</option>
-                            <option value="inProgress">In progress</option>
-                            <option value="done">Done</option>
-                            <option value="cancelled">Cancelled</option>
-                        </select></div>
-                </div>
-                <button id="addProject" class="btn">add project</button>
-                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-            </div>
         </div>
     </div>
 </div>
