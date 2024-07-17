@@ -2,6 +2,7 @@ const projectNameInput = document.querySelector("#projectName");
 const projectDateInput = document.querySelector("#projectDate");
 const projectStatusInput = document.querySelector("#projectStatus");
 const addProjectButton = document.querySelector("#addProject");
+const activeProjectsList = document.querySelector("#activeProjects");
 
 const taskNameInput = document.querySelector("#taskName");
 const taskDateInput = document.querySelector("#taskDate");
@@ -12,6 +13,15 @@ let customTaskIndex = -1;
 let customProjectIndex = -1;
 let appStorage = localStorage.getItem("appStorage") ?
     JSON.parse(localStorage.getItem('appStorage')) : [];
+
+function displayProjectList() {
+    for (let i in appStorage){
+        const projectItem = document.createElement("h5");
+        projectItem.classList.add("projectListSelect");
+        projectItem.innerText = appStorage[i].projectName;
+        activeProjectsList.appendChild(projectItem);
+    }
+}
 
 function Project(projectName, dueDate, status) {
     customProjectIndex++;
@@ -27,8 +37,21 @@ function Project(projectName, dueDate, status) {
 }
 
 function createAProject() {
-    appStorage.push(Project(projectNameInput.value, projectDateInput.value, projectStatusInput.value));
-    localStorage.setItem("appStorage", JSON.stringify(appStorage));
+    if (projectNameInput.value === "") {
+        alert("Please enter a valid name");
+    } else {
+        appStorage.push(Project(projectNameInput.value, projectDateInput.value, projectStatusInput.value));
+        localStorage.setItem("appStorage", JSON.stringify(appStorage));
+        createAProjectDom(projectNameInput.value);
+        projectNameInput.value = "";
+    }
+}
+
+function createAProjectDom(projectName) {
+    const projectItem = document.createElement("h5");
+    projectItem.classList.add("projectListSelect");
+    projectItem.innerText = projectName;
+    activeProjectsList.appendChild(projectItem);
 }
 
 function Task(taskName, date, status) {
@@ -79,6 +102,7 @@ function closeForm() {
     document.getElementById("projectEntry").style.display = "none";
 }
 
+displayProjectList()
 addProjectButton.addEventListener("click", createAProject);
 addTaskButton.addEventListener("click", createATask);
 
