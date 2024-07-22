@@ -14,6 +14,8 @@ let customProjectIndex = -1;
 let appStorage = localStorage.getItem("appStorage") ?
     JSON.parse(localStorage.getItem('appStorage')) : [];
 
+let projectSelectedState;
+
 function displayProjectList() {
     for (let i in appStorage){
         const projectItem = document.createElement("h5");
@@ -70,6 +72,10 @@ function createATask() {
     localStorage.setItem("appStorage", JSON.stringify(appStorage));
 }
 
+function selectedProject(){
+    console.log(this);
+}
+
 function removeTask(projectId, taskId) {
     appStorage[projectId].taskList.splice(taskId, 1);
     localStorage.setItem("appStorage", JSON.stringify(appStorage));
@@ -105,4 +111,6 @@ function closeForm() {
 displayProjectList()
 addProjectButton.addEventListener("click", createAProject);
 addTaskButton.addEventListener("click", createATask);
+
+
 
