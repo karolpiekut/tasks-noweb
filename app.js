@@ -9,10 +9,19 @@ const taskDateInput = document.querySelector("#taskDate");
 const taskStatusInput = document.querySelector("#taskStatus");
 const addTaskButton = document.querySelector("#addTask");
 
-let customTaskIndex = -1;
-let customProjectIndex = -1;
 let appStorage = localStorage.getItem("appStorage") ?
     JSON.parse(localStorage.getItem('appStorage')) : [];
+
+let customTaskIndex = -1;
+let customProjectIndex ;
+
+// console.log(appStorage[appStorage.length - 1].customProjectIndex);
+
+if (appStorage.length === 0) {
+    customProjectIndex =  -1;
+}  else {
+    customProjectIndex =  appStorage[appStorage.length - 1].customProjectIndex;
+}
 
 let projectSelectedState;
 
@@ -52,6 +61,7 @@ function createAProject() {
 function createAProjectDom(projectName) {
     const projectItem = document.createElement("h5");
     projectItem.classList.add("projectListSelect");
+    projectItem.setAttribute("id", `${projectName.replace(/\s/g,'')}${customProjectIndex}`);
     projectItem.innerText = projectName;
     activeProjectsList.appendChild(projectItem);
 }
@@ -70,10 +80,6 @@ function createATask() {
     //appStorage[projectId].taskList.push(Task(taskNameInput.value, taskDateInput.value, taskStatusInput.value));
     appStorage[0].taskList.push(Task(taskNameInput.value, taskDateInput.value, taskStatusInput.value));
     localStorage.setItem("appStorage", JSON.stringify(appStorage));
-}
-
-function selectedProject(){
-    console.log(this);
 }
 
 function removeTask(projectId, taskId) {
@@ -111,6 +117,15 @@ function closeForm() {
 displayProjectList()
 addProjectButton.addEventListener("click", createAProject);
 addTaskButton.addEventListener("click", createATask);
+
+activeProjectsList.addEventListener('click', function (event) {
+    if(!event.target.classList.contains("projectListSelect")) return;
+    // let clickedItem = event.target
+    projectSelectedState = event.target.id;
+    console.log(projectSelectedState);
+})
+
+
 
 
 
