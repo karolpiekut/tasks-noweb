@@ -3,6 +3,7 @@ const projectDateInput = document.querySelector("#projectDate");
 const projectStatusInput = document.querySelector("#projectStatus");
 const addProjectButton = document.querySelector("#addProject");
 const activeProjectsList = document.querySelector("#activeProjects");
+const archiveProjects = document.querySelector("#archivedProjectsSelect");
 
 const taskNameInput = document.querySelector("#taskName");
 const taskDateInput = document.querySelector("#taskDate");
@@ -29,7 +30,7 @@ function displayProjectList() {
     for (let i in appStorage){
         const projectItem = document.createElement("h5");
         projectItem.classList.add("projectListSelect");
-        projectItem.setAttribute('id', `${appStorage[i].projectName.replace(/\s/g,'')}${appStorage[i].customProjectIndex}` )
+        projectItem.setAttribute('id', appStorage[i].customProjectIndex )
         projectItem.innerText = appStorage[i].projectName;
         activeProjectsList.appendChild(projectItem);
     }
@@ -62,7 +63,7 @@ function createAProject() {
 function createAProjectDom(projectName) {
     const projectItem = document.createElement("h5");
     projectItem.classList.add("projectListSelect");
-    projectItem.setAttribute("id", `${projectName.replace(/\s/g,'')}${customProjectIndex}`);
+    projectItem.setAttribute("id", customProjectIndex);
     projectItem.innerText = projectName;
     activeProjectsList.appendChild(projectItem);
 }
@@ -126,6 +127,11 @@ addTaskButton.addEventListener("click", createATask);
 activeProjectsList.addEventListener('click', function (event) {
     if(!event.target.classList.contains("projectListSelect")) return;
     // let clickedItem = event.target
+    projectSelectedState = event.target.id;
+    console.log(projectSelectedState);
+})
+
+archiveProjects.addEventListener("click", function (event) {
     projectSelectedState = event.target.id;
     console.log(projectSelectedState);
 })

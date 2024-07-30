@@ -214,13 +214,26 @@ body {
 
 #allProjectsSelect, #archivedProjectsSelect {
     font-size: large;
-    margin-left: 10px;
+    padding-left: 10px;
 }
 
 .projectListSelect {
     font-size: medium;
-    margin-left: 10px;
+    padding-left: 10px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+#activeProjects > h4:hover, h5:hover {
+    background-color: #d6e9ff;
+}
+
+#allProjectsSelect:hover, #archivedProjectsSelect:hover {
+    background-color: #d6e9ff;
+}
+
+div > #activeProjects {
+    height: 470px;
+    overflow: scroll;
 }
