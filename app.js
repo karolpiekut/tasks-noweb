@@ -29,6 +29,7 @@ function displayProjectList() {
     for (let i in appStorage){
         const projectItem = document.createElement("h5");
         projectItem.classList.add("projectListSelect");
+        projectItem.setAttribute('id', `${appStorage[i].projectName.replace(/\s/g,'')}${appStorage[i].customProjectIndex}` )
         projectItem.innerText = appStorage[i].projectName;
         activeProjectsList.appendChild(projectItem);
     }
@@ -64,6 +65,10 @@ function createAProjectDom(projectName) {
     projectItem.setAttribute("id", `${projectName.replace(/\s/g,'')}${customProjectIndex}`);
     projectItem.innerText = projectName;
     activeProjectsList.appendChild(projectItem);
+}
+
+function displayTasksDom(selectedProject){
+
 }
 
 function Task(taskName, date, status) {
