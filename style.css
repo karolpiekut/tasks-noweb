@@ -25,6 +25,9 @@ body {
 #taskList {
     width: 85%;
     background: #f3f3f4;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .individualTask {
@@ -205,6 +208,7 @@ body {
 
 #taskEntry {
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #selectedProjectName {
@@ -234,6 +238,11 @@ body {
 }
 
 div > #activeProjects {
+    height: 470px;
+    overflow: scroll;
+}
+
+div> #tasksDOMContainer {
     height: 470px;
     overflow: scroll;
 }

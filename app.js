@@ -16,23 +16,23 @@ let appStorage = localStorage.getItem("appStorage") ?
     JSON.parse(localStorage.getItem('appStorage')) : [];
 
 let customTaskIndex = -1;
-let customProjectIndex ;
+let customProjectIndex;
 
 // console.log(appStorage[appStorage.length - 1].customProjectIndex);
 
 if (appStorage.length === 0) {
-    customProjectIndex =  -1;
-}  else {
-    customProjectIndex =  appStorage[appStorage.length - 1].customProjectIndex;
+    customProjectIndex = -1;
+} else {
+    customProjectIndex = appStorage[appStorage.length - 1].customProjectIndex;
 }
 
 let projectSelectedState;
 
 function displayProjectList() {
-    for (let i in appStorage){
+    for (let i in appStorage) {
         const projectItem = document.createElement("h5");
         projectItem.classList.add("projectListSelect");
-        projectItem.setAttribute('id', appStorage[i].customProjectIndex )
+        projectItem.setAttribute('id', appStorage[i].customProjectIndex)
         projectItem.innerText = appStorage[i].projectName;
         activeProjectsList.appendChild(projectItem);
     }
@@ -114,7 +114,7 @@ function displayTasksDom(selectedProject) {
                     </div>
                 </div>`
             // taskListSection.appendChild(taskRepeat);
-            tasksDomContainer.insertAdjacentHTML( 'beforeend', taskRepeat );
+            tasksDomContainer.insertAdjacentHTML('beforeend', taskRepeat);
             console.log(appStorage[selectedProject].taskList[i].date);
         }
         //clear dom with each select
@@ -171,13 +171,10 @@ function createATask() {
                     </div>
                 </div>`
     // taskListSection.appendChild(taskRepeat);
-    tasksDomContainer.insertAdjacentHTML( 'beforeend', taskRepeat );
-
+    tasksDomContainer.insertAdjacentHTML('beforeend', taskRepeat);
     taskNameInput.value = "";
     taskDateInput.value = "";
-    taskStatusInput.value = "notStarted";
-
-
+    taskStatusInput.value = "notStarted:";
 
 
 }
@@ -219,7 +216,7 @@ addProjectButton.addEventListener("click", createAProject);
 addTaskButton.addEventListener("click", createATask);
 
 activeProjectsList.addEventListener('click', function (event) {
-    if(!event.target.classList.contains("projectListSelect")) return;
+    if (!event.target.classList.contains("projectListSelect")) return;
     // let clickedItem = event.target
     projectSelectedState = event.target.id;
     displayTasksDom(projectSelectedState);
