@@ -7,8 +7,8 @@ body {
     margin: 8px auto auto auto;
     background: lightgrey;
     width: 98vw;
-    /*height: 98vh;*/
-    height: 70vh;
+    height: 98vh;
+    /*height: 70vh;*/
     display: flex;
     flex-direction: row;
 }
@@ -238,11 +238,13 @@ body {
 }
 
 div > #activeProjects {
-    height: 470px;
+    /*height: 470px;*/
+    height: 80vh;
     overflow: scroll;
 }
 
 div> #tasksDOMContainer {
-    height: 470px;
+    /*height: 470px;*/
+    height: 80vh;
     overflow: scroll;
 }
