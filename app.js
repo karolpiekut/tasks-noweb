@@ -172,12 +172,16 @@ function Task(taskName, date, status) {
 
 function createATask() {
   //appStorage[projectId].taskList.push(Task(taskNameInput.value, taskDateInput.value, taskStatusInput.value));
-  appStorage[projectSelectedState].taskList.push(
-    Task(taskNameInput.value, taskDateInput.value, taskStatusInput.value),
-  );
-  localStorage.setItem("appStorage", JSON.stringify(appStorage));
 
-  let taskRepeat = `<div class="individualTask">
+  if (projectSelectedState === "allProjectsSelect" || projectSelectedState === "archivedProjectsSelect") {
+    alert("please select a valid project")
+  } else {
+    appStorage[projectSelectedState].taskList.push(
+        Task(taskNameInput.value, taskDateInput.value, taskStatusInput.value),
+    );
+    localStorage.setItem("appStorage", JSON.stringify(appStorage));
+
+    let taskRepeat = `<div class="individualTask">
         <p class="taskNameClass">${taskNameInput.value}</p>
         <time class="taskDateClass" dateTime="2024-06-27">${taskDateInput.value}</time>
         <p class="taskStatusClass">${taskStatusInput.value}</p>
@@ -204,11 +208,12 @@ function createATask() {
         </button>
         </div>
         </div>`;
-  // taskListSection.appendChild(taskRepeat);
-  tasksDomContainer.insertAdjacentHTML("beforeend", taskRepeat);
-  taskNameInput.value = "";
-  taskDateInput.value = "";
-  taskStatusInput.value = "notStarted:";
+    // taskListSection.appendChild(taskRepeat);
+    tasksDomContainer.insertAdjacentHTML("beforeend", taskRepeat);
+    taskNameInput.value = "";
+    taskDateInput.value = "";
+    taskStatusInput.value = "notStarted:";
+  }
 }
 
 function deleteIndividualTask() {
