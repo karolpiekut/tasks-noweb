@@ -33,11 +33,13 @@ let projectSelectedState;
 
 function displayProjectList() {
     for (let i in appStorage) {
-        const projectItem = document.createElement("h5");
-        projectItem.classList.add("projectListSelect");
-        projectItem.setAttribute("id", appStorage[i].customProjectIndex);
-        projectItem.innerText = appStorage[i].projectName;
-        activeProjectsList.appendChild(projectItem);
+        if (appStorage[i].archivedProjectsSelect !== 1) {
+            const projectItem = document.createElement("h5");
+            projectItem.classList.add("projectListSelect");
+            projectItem.setAttribute("id", appStorage[i].customProjectIndex);
+            projectItem.innerText = appStorage[i].projectName;
+            activeProjectsList.appendChild(projectItem);
+        }
     }
 }
 
@@ -82,14 +84,31 @@ function createAProjectDom(projectName) {
 function changeArchiveStatus() {
     if (projectSelectedState === "allProjectsSelect" || projectSelectedState === "archivedProjectsSelect") {
         alert("please select a valid project");
-        //
     } else {
         appStorage[projectSelectedState].archivedProjectsSelect = 1;
+        localStorage.setItem("appStorage", JSON.stringify(appStorage));
+        activeProjectsList.innerText = '';
+        displayProjectList()
     }
 }
 
 function displayArchivedProjects() {
-
+    for (let j in appStorage) {
+        if (appStorage[j].archivedProjectsSelect === 1) {
+            for (let i in appStorage[j].taskList) {
+                let projectRepeat = `
+                    <div id="archived${appStorage[j].customProjectIndex}">
+                    <h5 class="projectListSelect" id="${appStorage[j].customProjectIndex}">${appStorage[j].projectName}</h5>
+                    <div class="individualTask"><p class="taskNameClass">${appStorage[j].taskList[i].taskName}</p>
+                    <time class="taskDateClass" dateTime="2024-06-27">${appStorage[j].taskList[i].date}</time>
+                    <p class="taskStatusClass">${appStorage[j].taskList[i].status}</p>
+                    </div>
+                    </div>
+                    `
+                tasksDomContainer.insertAdjacentHTML("beforeend", projectRepeat);
+            }
+        }
+    }
 }
 
 function displayAllTasks() {
@@ -137,8 +156,7 @@ function displayTasksDom(selectedProject) {
     if (selectedProject === "allProjectsSelect") {
         displayAllTasks();
     } else if (selectedProject === "archivedProjectsSelect") {
-        //projectHeaderH4.innerText = "Archive";
-        console.log("you have selected all archived projects");
+        displayArchivedProjects();
     } else {
         for (let i in appStorage[selectedProject].taskList) {
             let taskRepeat = `<div class="individualTask">
@@ -168,14 +186,8 @@ function displayTasksDom(selectedProject) {
                 </button>
                 </div>
                 </div>`;
-            // taskListSection.appendChild(taskRepeat);
             tasksDomContainer.insertAdjacentHTML("beforeend", taskRepeat);
-            //projectHeaderH4.innerText = appStorage[selectedProject].projectName;
-            //console.log(appStorage[selectedProject].taskList[i].date);
         }
-        //clear dom with each select
-        //find a way to insert variables
-        console.log(`you have selected ${selectedProject}`);
     }
 }
 
@@ -190,7 +202,6 @@ function Task(taskName, date, status) {
 }
 
 function createATask() {
-    //appStorage[projectId].taskList.push(Task(taskNameInput.value, taskDateInput.value, taskStatusInput.value));
     if (projectSelectedState === "allProjectsSelect" || projectSelectedState === "archivedProjectsSelect") {
         alert("please select a valid project");
     } else {
@@ -226,7 +237,6 @@ function createATask() {
         </button>
         </div>
         </div>`;
-        // taskListSection.appendChild(taskRepeat);
         tasksDomContainer.insertAdjacentHTML("beforeend", taskRepeat);
         taskNameInput.value = "";
         taskDateInput.value = "";
@@ -279,7 +289,6 @@ addTaskButton.addEventListener("click", createATask);
 
 activeProjectsList.addEventListener("click", function (event) {
     if (!event.target.classList.contains("projectListSelect")) return;
-    // let clickedItem = event.target
     projectSelectedState = event.target.id;
     displayTasksDom(projectSelectedState);
     projectHeaderH4.innerText = appStorage[projectSelectedState].projectName;
