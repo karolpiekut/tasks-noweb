@@ -95,18 +95,18 @@ function changeArchiveStatus() {
 function displayArchivedProjects() {
     for (let j in appStorage) {
         if (appStorage[j].archivedProjectsSelect === 1) {
+            let projectRepeat = `<div id="archived${appStorage[j].customProjectIndex}">
+                    <h5 class="projectListSelect" id="${appStorage[j].customProjectIndex}">${appStorage[j].projectName}</h5>`
             for (let i in appStorage[j].taskList) {
-                let projectRepeat = `
-                    <div id="archived${appStorage[j].customProjectIndex}">
-                    <h5 class="projectListSelect" id="${appStorage[j].customProjectIndex}">${appStorage[j].projectName}</h5>
+                projectRepeat += `
                     <div class="individualTask"><p class="taskNameClass">${appStorage[j].taskList[i].taskName}</p>
                     <time class="taskDateClass" dateTime="2024-06-27">${appStorage[j].taskList[i].date}</time>
                     <p class="taskStatusClass">${appStorage[j].taskList[i].status}</p>
                     </div>
                     </div>
                     `
-                tasksDomContainer.insertAdjacentHTML("beforeend", projectRepeat);
             }
+            tasksDomContainer.insertAdjacentHTML("beforeend", projectRepeat);
         }
     }
 }
