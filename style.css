@@ -288,3 +288,29 @@ div > #tasksDOMContainer {
     opacity: 1;
     background: #04AA6D;
 }
+
+#projectInfo {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+
+#selectedProjectName, #projectStatusDisplayID {
+    border-right: 1px solid black;
+    padding-right: 5px;
+}
+
+.archivedProjectHeader {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    border-right: 1px solid black;
+    padding-right: 5px;
+}
+
+.inArchive {
+    border-right: 1px solid black;
+    padding-right: 5px;
+}

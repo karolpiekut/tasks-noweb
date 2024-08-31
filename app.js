@@ -14,7 +14,8 @@ const tasksDomContainer = document.querySelector("#tasksDOMContainer");
 //const deleteButtons = document.querySelectorAll(".taskDeleteButtonClass");
 const projectHeaderH4 = document.querySelector("#selectedProjectName");
 const archiveButton = document.querySelector("#archiveButton");
-
+const projectStatusDisplayID = document.querySelector("#projectStatusDisplayID");
+const projectDateId = document.querySelector("#projectDateId");
 
 let appStorage = localStorage.getItem("appStorage")
     ? JSON.parse(localStorage.getItem("appStorage"))
@@ -93,10 +94,14 @@ function changeArchiveStatus() {
 }
 
 function displayArchivedProjects() {
+    projectStatusDisplayID.innerHTML = "";
+    projectDateId.innerHTML = "";
     for (let j in appStorage) {
         if (appStorage[j].archivedProjectsSelect === 1) {
-            let projectRepeat = `<div id="archived${appStorage[j].customProjectIndex}">
-                    <h5 class="projectListSelect" id="${appStorage[j].customProjectIndex}">${appStorage[j].projectName}</h5>`
+            let projectRepeat = `<div class="archivedProjectHeader" id="archived${appStorage[j].customProjectIndex}">
+                    <h5 class="projectListSelect inArchive" id="${appStorage[j].customProjectIndex}">${appStorage[j].projectName}</h5>
+                    <p id="projectStatusDisplayID">${appStorage[j].status}</p>
+                    <time id="projectDateId" dateTime="2024-06-27">${appStorage[j].dueDate}</time></div>`
             for (let i in appStorage[j].taskList) {
                 projectRepeat += `
                     <div class="individualTask"><p class="taskNameClass">${appStorage[j].taskList[i].taskName}</p>
@@ -112,40 +117,30 @@ function displayArchivedProjects() {
 }
 
 function displayAllTasks() {
+    projectStatusDisplayID.innerHTML = "";
+    projectDateId.innerHTML = "";
     projectHeaderH4.innerText = "All Tasks";
     for (let j in appStorage) {
-        for (let i in appStorage[j].taskList) {
-            let taskRepeat = `<div class="individualTask">
-                <p class="taskNameClass">${appStorage[j].taskList[i].taskName}</p>
-                <time class="taskDateClass" dateTime="2024-06-27">${appStorage[j].taskList[i].date}</time>
-                <p class="taskStatusClass">${appStorage[j].taskList[i].status}</p>
-                <div class="taskButtons">
-                <button class="taskCompleteButtonClass"><?xml version="1.0" encoding="UTF-8"?>
-                <svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
-            xmlns="http://www.w3.org/2000/svg" color="#FFFFFFFF">
-                <path d="M5 13L9 17L19 7" stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round"
-            stroke-linejoin="round"></path>
-                </svg>
-                </button>
-                <button class="taskDeleteButtonClass"><?xml version="1.0" encoding="UTF-8"?>
-                <svg width="24px" height="24px" viewBox="0 0 24 24" stroke-width="1.5" fill="none"
-            xmlns="http://www.w3.org/2000/svg" color="#FFFFFFFF">
-                <path
-            d="M20 9L18.005 20.3463C17.8369 21.3026 17.0062 22 16.0353 22H7.96474C6.99379 22 6.1631 21.3026 5.99496 20.3463L4 9"
-            stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round"
-            stroke-linejoin="round"></path>
-                <path
-            d="M21 6L15.375 6M3 6L8.625 6M8.625 6V4C8.625 2.89543 9.52043 2 10.625 2H13.375C14.4796 2 15.375 2.89543 15.375 4V6M8.625 6L15.375 6"
-            stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round"
-            stroke-linejoin="round"></path>
-                </svg>
-                </button>
-                </div>
-                </div>`;
-            tasksDomContainer.insertAdjacentHTML("beforeend", taskRepeat);
+        if (appStorage[j].archivedProjectsSelect !== 1) {
+            let projectRepeat = `<div class="archivedProjectHeader" id="archived${appStorage[j].customProjectIndex}">
+                    <h5 class="projectListSelect inArchive" id="${appStorage[j].customProjectIndex}">${appStorage[j].projectName}</h5>
+                    <p id="projectStatusDisplayID">${appStorage[j].status}</p>
+                    <time id="projectDateId" dateTime="2024-06-27">${appStorage[j].dueDate}</time></div>`
+            for (let i in appStorage[j].taskList) {
+                projectRepeat += `
+                    <div class="individualTask"><p class="taskNameClass">${appStorage[j].taskList[i].taskName}</p>
+                    <time class="taskDateClass" dateTime="2024-06-27">${appStorage[j].taskList[i].date}</time>
+                    <p class="taskStatusClass">${appStorage[j].taskList[i].status}</p>
+                    </div>
+                    </div>
+                    `
+            }
+            tasksDomContainer.insertAdjacentHTML("beforeend", projectRepeat);
         }
     }
 }
+
+//FIX DO NOT REPEAT YOURSELF!!!!!!!!!!!
 
 
 function displayTasksDom(selectedProject) {
@@ -292,6 +287,8 @@ activeProjectsList.addEventListener("click", function (event) {
     projectSelectedState = event.target.id;
     displayTasksDom(projectSelectedState);
     projectHeaderH4.innerText = appStorage[projectSelectedState].projectName;
+    projectStatusDisplayID.innerText = appStorage[projectSelectedState].status;
+    projectDateId.innerText = appStorage[projectSelectedState].dueDate;
 });
 
 archiveProjects.addEventListener("click", function (event) {
