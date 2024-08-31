@@ -301,12 +301,11 @@ div > #tasksDOMContainer {
     padding-right: 5px;
 }
 
-.archivedProjectHeader {
+.archivedAllProjectHeader {
     display: flex;
     flex-direction: row;
     gap: 10px;
     align-items: center;
-    border-right: 1px solid black;
     padding-right: 5px;
 }
 

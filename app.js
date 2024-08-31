@@ -98,7 +98,7 @@ function displayArchivedProjects() {
     projectDateId.innerHTML = "";
     for (let j in appStorage) {
         if (appStorage[j].archivedProjectsSelect === 1) {
-            let projectRepeat = `<div class="archivedProjectHeader" id="archived${appStorage[j].customProjectIndex}">
+            let projectRepeat = `<div class="archivedAllProjectHeader" id="archived${appStorage[j].customProjectIndex}">
                     <h5 class="projectListSelect inArchive" id="${appStorage[j].customProjectIndex}">${appStorage[j].projectName}</h5>
                     <p id="projectStatusDisplayID">${appStorage[j].status}</p>
                     <time id="projectDateId" dateTime="2024-06-27">${appStorage[j].dueDate}</time></div>`
@@ -120,9 +120,10 @@ function displayAllTasks() {
     projectStatusDisplayID.innerHTML = "";
     projectDateId.innerHTML = "";
     projectHeaderH4.innerText = "All Tasks";
+    projectHeaderH4.style.borderRight = "none";
     for (let j in appStorage) {
         if (appStorage[j].archivedProjectsSelect !== 1) {
-            let projectRepeat = `<div class="archivedProjectHeader" id="archived${appStorage[j].customProjectIndex}">
+            let projectRepeat = `<div class="archivedAllProjectHeader" id="archived${appStorage[j].customProjectIndex}">
                     <h5 class="projectListSelect inArchive" id="${appStorage[j].customProjectIndex}">${appStorage[j].projectName}</h5>
                     <p id="projectStatusDisplayID">${appStorage[j].status}</p>
                     <time id="projectDateId" dateTime="2024-06-27">${appStorage[j].dueDate}</time></div>`
@@ -276,6 +277,7 @@ function closeForm() {
 }
 
 //alert("please use it in full screen, I am too lazy to add media queries for now :)")
+
 displayProjectList();
 displayAllTasks();
 
@@ -287,6 +289,7 @@ activeProjectsList.addEventListener("click", function (event) {
     projectSelectedState = event.target.id;
     displayTasksDom(projectSelectedState);
     projectHeaderH4.innerText = appStorage[projectSelectedState].projectName;
+    projectHeaderH4.style.borderRight = "1px solid black";
     projectStatusDisplayID.innerText = appStorage[projectSelectedState].status;
     projectDateId.innerText = appStorage[projectSelectedState].dueDate;
 });
@@ -295,12 +298,14 @@ archiveProjects.addEventListener("click", function (event) {
     projectSelectedState = event.target.id;
     displayTasksDom(projectSelectedState);
     projectHeaderH4.innerText = "Archive";
+    projectHeaderH4.style.borderRight = "none";
 });
 
 allProjectsSelect.addEventListener("click", function (event) {
     projectSelectedState = event.target.id;
     displayTasksDom(projectSelectedState);
     projectHeaderH4.innerText = "All Tasks";
+    projectHeaderH4.style.borderRight = "none";
 });
 
 archiveButton.addEventListener("click", changeArchiveStatus);
