@@ -238,7 +238,19 @@ body {
     text-overflow: ellipsis;
 }
 
-#activeProjects > h4:hover, h5:hover {
+.projectListSelectInArchiveAll {
+    font-size: medium;
+    padding-left: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#activeProjects > h4:hover/*, h5:hover*/ {
+    background-color: #d6e9ff;
+}
+
+.projectListSelect:hover {
     background-color: #d6e9ff;
 }
 
@@ -309,7 +321,8 @@ div > #tasksDOMContainer {
     padding-right: 5px;
 }
 
-.inArchive {
+.inAllArchive {
     border-right: 1px solid black;
     padding-right: 5px;
 }
+

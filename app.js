@@ -16,6 +16,7 @@ const projectHeaderH4 = document.querySelector("#selectedProjectName");
 const archiveButton = document.querySelector("#archiveButton");
 const projectStatusDisplayID = document.querySelector("#projectStatusDisplayID");
 const projectDateId = document.querySelector("#projectDateId");
+const projectInfoHeader = document.querySelector("#projectInfo");
 
 let appStorage = localStorage.getItem("appStorage")
     ? JSON.parse(localStorage.getItem("appStorage"))
@@ -99,7 +100,7 @@ function displayArchivedProjects() {
     for (let j in appStorage) {
         if (appStorage[j].archivedProjectsSelect === 1) {
             let projectRepeat = `<div class="archivedAllProjectHeader" id="archived${appStorage[j].customProjectIndex}">
-                    <h5 class="projectListSelect inArchive" id="${appStorage[j].customProjectIndex}">${appStorage[j].projectName}</h5>
+                    <h5 class="projectListSelectInArchiveAll inAllArchive" id="${appStorage[j].customProjectIndex}">${appStorage[j].projectName}</h5>
                     <p id="projectStatusDisplayID">${appStorage[j].status}</p>
                     <time id="projectDateId" dateTime="2024-06-27">${appStorage[j].dueDate}</time></div>`
             for (let i in appStorage[j].taskList) {
@@ -124,7 +125,7 @@ function displayAllTasks() {
     for (let j in appStorage) {
         if (appStorage[j].archivedProjectsSelect !== 1) {
             let projectRepeat = `<div class="archivedAllProjectHeader" id="archived${appStorage[j].customProjectIndex}">
-                    <h5 class="projectListSelect inArchive" id="${appStorage[j].customProjectIndex}">${appStorage[j].projectName}</h5>
+                    <h5 class="projectListSelectInArchiveAll inAllArchive" id="${appStorage[j].customProjectIndex}">${appStorage[j].projectName}</h5>
                     <p id="projectStatusDisplayID">${appStorage[j].status}</p>
                     <time id="projectDateId" dateTime="2024-06-27">${appStorage[j].dueDate}</time></div>`
             for (let i in appStorage[j].taskList) {
@@ -240,26 +241,38 @@ function createATask() {
     }
 }
 
+function amendProjectDetails() {
+    if (this.id === "selectedProjectName"){
+        console.log("name");
+    } else if (this.id === "projectStatusDisplayID") {
+        console.log("status")
+    } else if (this.id === "projectDateId") {
+        console.log("date");
+    }
+}
+
+//create rules for changing selected project header, but not archive or all
+
 function deleteIndividualTask() {
     console.log(this);
 }
 
-function removeTask(projectId, taskId) {
+function removeTaskInStorage(projectId, taskId) {
     appStorage[projectId].taskList.splice(taskId, 1);
     localStorage.setItem("appStorage", JSON.stringify(appStorage));
 }
 
-function removeProject(projectId) {
+function removeProjectInStorage(projectId) {
     appStorage.splice(projectId, 1);
     localStorage.setItem("appStorage", JSON.stringify(appStorage));
 }
 
-function amendProjectDetails(projectId, property, newValue) {
+function amendProjectDetailsInStorage(projectId, property, newValue) {
     appStorage[projectId][property] = newValue;
     localStorage.setItem("appStorage", JSON.stringify(appStorage));
 }
 
-function amendTaskDetails(projectId, taskId, property, newValue) {
+function amendTaskDetailsInStorage(projectId, taskId, property, newValue) {
     appStorage[projectId].taskList[taskId][property] = newValue;
     localStorage.setItem("appStorage", JSON.stringify(appStorage));
 }
@@ -289,7 +302,7 @@ activeProjectsList.addEventListener("click", function (event) {
     projectSelectedState = event.target.id;
     displayTasksDom(projectSelectedState);
     projectHeaderH4.innerText = appStorage[projectSelectedState].projectName;
-    projectHeaderH4.style.borderRight = "1px solid black";
+
     projectStatusDisplayID.innerText = appStorage[projectSelectedState].status;
     projectDateId.innerText = appStorage[projectSelectedState].dueDate;
 });
@@ -324,3 +337,8 @@ archiveButton.addEventListener("click", changeArchiveStatus);
 //     }
 //   }
 // });
+
+//projectInfoHeader.addEventListener("click", amendProjectDetails);
+projectHeaderH4.addEventListener("click", amendProjectDetails);
+projectStatusDisplayID.addEventListener("click", amendProjectDetails);
+projectDateId.addEventListener("click", amendProjectDetails);
