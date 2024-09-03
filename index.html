@@ -42,6 +42,29 @@
                 <button type="button" class="btn cancel" onclick="closeForm()">close</button>
             </div>
         </div>
+        <!--project amend section-->
+
+        <div class="form-popup2" id="projectAmendEntry">
+            <div class="form-container">
+                <div id="formInputFieldsAmend">
+                    <div id="inputProjectNameDivAmend"><label hidden for="projectNameAmend">project name</label>
+                        <input type="text" id="projectNameAmend" name="projectNameAmend" placeholder="project" required></div>
+                    <div id="inputProjectDateDivAmend"><label hidden for="projectDateAmend">due</label>
+                        <input type="date" id="projectDateAmend" name="projectDateAmend"></div>
+                    <div id="inputProjectStatusDivAmend"><label hidden for="projectStatusAmend">status</label>
+                        <select id="projectStatusAmend" name="projectStatusAmend" required>
+                            <option value="notStarted">Not started</option>
+                            <option value="inProgress">In progress</option>
+                            <option value="done">Done</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select></div>
+                </div>
+                <button id="amendProjectBtnConfirm" class="btn">Amend Project</button>
+                <button type="button" class="btn cancel" onclick="closeForm()">close</button>
+            </div>
+        </div>
+
+        <!--project amend section-->
     </div>
     <div id="taskList">
         <div id=selectedProjectSection>
@@ -51,7 +74,10 @@
                     <p id="projectStatusDisplayID"></p>
                     <time id="projectDateId" dateTime="2024-06-27"></time>
                 </div>
-                <button id="archiveButton">Archive project</button>
+                <div id="projectButtons">
+                    <button id="amendProjectButton">Amend Project</button>
+                    <button id="archiveButton">Archive project</button>
+                </div>
             </div>
             <div id="tasksDOMContainer"></div>
         </div>

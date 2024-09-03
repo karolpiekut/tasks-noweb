@@ -278,14 +278,7 @@ div > #tasksDOMContainer {
     justify-content: space-between;
 }
 
-#archiveButton {
-    /*margin-right: 20px;*/
-    /*width: 80px;*/
-    /*height: 40px;*/
-    /*background-color: #555;*/
-    /*color: white;*/
-    /*opacity: 0.8;*/
-
+#archiveButton, #amendProjectButton {
     background-color: #555;
     color: white;
     border: none;
@@ -301,6 +294,11 @@ div > #tasksDOMContainer {
     background: #04AA6D;
 }
 
+#amendProjectButton:hover {
+    opacity: 1;
+    background: orange;
+}
+
 #projectInfo {
     display: flex;
     flex-direction: row;
@@ -308,7 +306,7 @@ div > #tasksDOMContainer {
     align-items: center;
 }
 
-#selectedProjectName, #projectStatusDisplayID {
+#projectStatusDisplayID {
     border-right: 1px solid black;
     padding-right: 5px;
 }

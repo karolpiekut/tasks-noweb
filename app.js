@@ -9,14 +9,15 @@ const taskNameInput = document.querySelector("#taskName");
 const taskDateInput = document.querySelector("#taskDate");
 const taskStatusInput = document.querySelector("#taskStatus");
 const addTaskButton = document.querySelector("#addTask");
-const taskListSection = document.querySelector("#taskList");
+//const taskListSection = document.querySelector("#taskList");
 const tasksDomContainer = document.querySelector("#tasksDOMContainer");
 //const deleteButtons = document.querySelectorAll(".taskDeleteButtonClass");
 const projectHeaderH4 = document.querySelector("#selectedProjectName");
 const archiveButton = document.querySelector("#archiveButton");
 const projectStatusDisplayID = document.querySelector("#projectStatusDisplayID");
 const projectDateId = document.querySelector("#projectDateId");
-const projectInfoHeader = document.querySelector("#projectInfo");
+//const projectInfoHeader = document.querySelector("#projectInfo");
+const amendProjectButton = document.querySelector("#amendProjectButton");
 
 let appStorage = localStorage.getItem("appStorage")
     ? JSON.parse(localStorage.getItem("appStorage"))
@@ -31,7 +32,7 @@ if (appStorage.length === 0) {
     customProjectIndex = appStorage[appStorage.length - 1].customProjectIndex;
 }
 
-let projectSelectedState;
+let projectSelectedState = "allProjectsSelect";
 
 function displayProjectList() {
     for (let i in appStorage) {
@@ -93,6 +94,8 @@ function changeArchiveStatus() {
         displayProjectList()
     }
 }
+
+//FIX DO NOT REPEAT YOURSELF!!!!!!!!!!!
 
 function displayArchivedProjects() {
     projectStatusDisplayID.innerHTML = "";
@@ -241,45 +244,76 @@ function createATask() {
     }
 }
 
+
+//RE-USE ADD PROJECT WINDOW!!!!!!!!!
 function amendProjectDetails() {
-    if (this.id === "selectedProjectName"){
-        console.log("name");
-    } else if (this.id === "projectStatusDisplayID") {
-        console.log("status")
-    } else if (this.id === "projectDateId") {
-        console.log("date");
+
+    //
+    // projectHeaderH4.addEventListener("click", amendProjectDetails);
+    // projectStatusDisplayID.addEventListener("click", amendProjectDetails);
+    // projectDateId.addEventListener("click", amendProjectDetails);
+    if (projectSelectedState === "allProjectsSelect" || projectSelectedState === "archivedProjectsSelect") {
+        console.log("it doesn't work");
+    } else {
+        console.log("I actually do work");
     }
+    // } else {
+    //     if (this.id === "selectedProjectName") {
+    //         let newProjectName;
+    //         do {
+    //             newProjectName = prompt("New project name:");
+    //         } while(newProjectName === null || newProjectName === "" );
+    //         amendProjectDetailsInStorage(projectSelectedState, "projectName", newProjectName);
+    //
+    //         while (activeProjectsList.hasChildNodes()) {
+    //             activeProjectsList.removeChild(activeProjectsList.firstChild);
+    //         }
+    //         displayProjectList();
+    //         projectHeaderH4.innerHTML = newProjectName;
+    //     } else if (this.id === "projectStatusDisplayID") {
+    //         //this is so, so bad
+    //         let updateProjectStatus;
+    //         do {
+    //             updateProjectStatus = prompt("New project status: (1 for Not started, 2 for In Progress, 3 for Done, 4 for Cancelled:");
+    //         } while (updateProjectStatus === null || updateProjectStatus === "");
+    //         console.log(updateProjectStatus);
+    //     } else if (this.id === "projectDateId") {
+    //         console.log("date");
+    //     }
+    // }
 }
+
+
 
 //create rules for changing selected project header, but not archive or all
 
-function deleteIndividualTask() {
-    console.log(this);
-}
-
-function removeTaskInStorage(projectId, taskId) {
-    appStorage[projectId].taskList.splice(taskId, 1);
-    localStorage.setItem("appStorage", JSON.stringify(appStorage));
-}
-
-function removeProjectInStorage(projectId) {
-    appStorage.splice(projectId, 1);
-    localStorage.setItem("appStorage", JSON.stringify(appStorage));
-}
+// function deleteIndividualTask() {
+//     console.log(this);
+// }
+//
+// function removeTaskInStorage(projectId, taskId) {
+//     appStorage[projectId].taskList.splice(taskId, 1);
+//     localStorage.setItem("appStorage", JSON.stringify(appStorage));
+// }
+//
+// function removeProjectInStorage(projectId) {
+//     appStorage.splice(projectId, 1);
+//     localStorage.setItem("appStorage", JSON.stringify(appStorage));
+// }
 
 function amendProjectDetailsInStorage(projectId, property, newValue) {
     appStorage[projectId][property] = newValue;
     localStorage.setItem("appStorage", JSON.stringify(appStorage));
 }
 
-function amendTaskDetailsInStorage(projectId, taskId, property, newValue) {
-    appStorage[projectId].taskList[taskId][property] = newValue;
-    localStorage.setItem("appStorage", JSON.stringify(appStorage));
-}
+// function amendTaskDetailsInStorage(projectId, taskId, property, newValue) {
+//     appStorage[projectId].taskList[taskId][property] = newValue;
+//     localStorage.setItem("appStorage", JSON.stringify(appStorage));
+// }
 
-function clearLocalStorage() {
-    localStorage.clear();
-}
+// function clearLocalStorage() {
+//     localStorage.clear();
+// }
 
 function openForm() {
     document.getElementById("projectEntry").style.display = "block";
@@ -302,9 +336,11 @@ activeProjectsList.addEventListener("click", function (event) {
     projectSelectedState = event.target.id;
     displayTasksDom(projectSelectedState);
     projectHeaderH4.innerText = appStorage[projectSelectedState].projectName;
-
     projectStatusDisplayID.innerText = appStorage[projectSelectedState].status;
     projectDateId.innerText = appStorage[projectSelectedState].dueDate;
+    projectHeaderH4.style.borderRight = "1px solid black";
+    projectHeaderH4.style.paddingRight = "10px";
+
 });
 
 archiveProjects.addEventListener("click", function (event) {
@@ -339,6 +375,4 @@ archiveButton.addEventListener("click", changeArchiveStatus);
 // });
 
 //projectInfoHeader.addEventListener("click", amendProjectDetails);
-projectHeaderH4.addEventListener("click", amendProjectDetails);
-projectStatusDisplayID.addEventListener("click", amendProjectDetails);
-projectDateId.addEventListener("click", amendProjectDetails);
+amendProjectButton.addEventListener("click", amendProjectDetails);
