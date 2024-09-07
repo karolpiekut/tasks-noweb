@@ -95,24 +95,49 @@ body {
 .open-button {
     background-color: #555;
     color: white;
-    padding: 16px 20px;
     border: none;
     cursor: pointer;
     opacity: 0.8;
     position: fixed;
     /*bottom: 23px;*/
-    bottom: 17px;
-    right: 28px;
-    width: 184px;
+    /*bottom: 17px;*/
+    top: 22.5px;
+    right: 222px;
+    width: 80px;
+    height: 40px;
+}
+
+.open-amend-button {
+    background-color: #555;
+    color: white;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    position: fixed;
+    /*bottom: 23px;*/
+    top: 22.5px;
+    right: 108px;
+    width: 80px;
+    height: 40px;
 }
 
 /* The popup form - hidden by default */
 .form-popup {
     display: none;
     position: fixed;
-    bottom: 0;
-    right: 15px;
-    border: 3px solid #f1f1f1;
+    left: 45%;
+    top: 30%;
+    border: 3px solid #cccccc;
+    z-index: 9;
+}
+
+.amend-form-popup {
+    display: none;
+    position: fixed;
+    left: 45%;
+    top: 30%;
+    border: 3px solid lightsalmon;
+    /*border: 3px solid #f1f1f1;*/
     z-index: 9;
 }
 
@@ -161,30 +186,34 @@ body {
     background: red;
 }
 
-#formInputFields {
+#formInputFields, #formInputFieldsAmend {
     display: flex;
     flex-direction: column;
     gap: 3px;
     align-items: center;
 
-}
-
-#formInputFields {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    align-items: center;
 }
 
 #projectStatus, #projectDate {
     height: 30px;
     margin-bottom: 5px;
-    width: 184px;
+    width: 200px;
+}
+
+#projectStatusAmend, #projectDateAmend {
+    height: 30px;
+    margin-bottom: 5px;
+    width: 200px;
 }
 
 #projectName {
     margin-bottom: 5px;
-    width: 184px;
+    width: 200px;
+}
+
+#projectNameAmend {
+    margin-bottom: 5px;
+    width: 200px;
 }
 
 #taskName, #taskDate, #taskStatus {
@@ -218,6 +247,7 @@ body {
 #taskEntry {
     margin-top: 10px;
     margin-bottom: 10px;
+    gap: 5px;
 }
 
 #selectedProjectName {

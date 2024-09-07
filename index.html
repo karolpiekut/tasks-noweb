@@ -22,7 +22,7 @@
         </div>
     </div>
     <div id="addProjectSection">
-        <button class="open-button" onclick="openForm()">add project</button>
+        <button class="open-button" onclick="openForm()">New project</button>
         <div class="form-popup" id="projectEntry">
             <div class="form-container">
                 <div id="formInputFields">
@@ -32,10 +32,10 @@
                         <input type="date" id="projectDate" name="projectDate"></div>
                     <div id="inputProjectStatusDiv"><label hidden for="projectStatus">status</label>
                         <select id="projectStatus" name="projectStatus" required>
-                            <option value="notStarted">Not started</option>
-                            <option value="inProgress">In progress</option>
-                            <option value="done">Done</option>
-                            <option value="cancelled">Cancelled</option>
+                            <option value="to-do">to-do</option>
+                            <option value="progressing">progressing</option>
+                            <option value="done">done</option>
+                            <option value="cancelled">cancelled</option>
                         </select></div>
                 </div>
                 <button id="addProject" class="btn">add project</button>
@@ -43,8 +43,8 @@
             </div>
         </div>
         <!--project amend section-->
-
-        <div class="form-popup2" id="projectAmendEntry">
+        <button class="open-amend-button" id="amendProjectButton" onclick="openAmendForm()">Amend Project</button>
+        <div class="amend-form-popup" id="projectAmendEntry">
             <div class="form-container">
                 <div id="formInputFieldsAmend">
                     <div id="inputProjectNameDivAmend"><label hidden for="projectNameAmend">project name</label>
@@ -53,14 +53,14 @@
                         <input type="date" id="projectDateAmend" name="projectDateAmend"></div>
                     <div id="inputProjectStatusDivAmend"><label hidden for="projectStatusAmend">status</label>
                         <select id="projectStatusAmend" name="projectStatusAmend" required>
-                            <option value="notStarted">Not started</option>
-                            <option value="inProgress">In progress</option>
-                            <option value="done">Done</option>
-                            <option value="cancelled">Cancelled</option>
+                            <option value="to-do">to-do</option>
+                            <option value="progressing">progressing</option>
+                            <option value="done">done</option>
+                            <option value="cancelled">cancelled</option>
                         </select></div>
                 </div>
-                <button id="amendProjectBtnConfirm" class="btn">Amend Project</button>
-                <button type="button" class="btn cancel" onclick="closeForm()">close</button>
+                <button id="amendProjectBtnConfirm" class="btn">amend project</button>
+                <button type="button" class="btn cancel" onclick="closeAmendForm()">close</button>
             </div>
         </div>
 
@@ -75,26 +75,26 @@
                     <time id="projectDateId" dateTime="2024-06-27"></time>
                 </div>
                 <div id="projectButtons">
-                    <button id="amendProjectButton">Amend Project</button>
                     <button id="archiveButton">Archive project</button>
                 </div>
             </div>
+            <div id="taskEntry">
+                <label for="taskName" hidden="">task name:</label>
+                <input type="text" id="taskName" name="taskName" placeholder="task name" required>
+                <label for="taskDate" hidden>due date:</label>
+                <input type="date" id="taskDate" name="taskDate" placeholder="due date" required>
+                <label for="taskStatus" hidden>select status:</label>
+                <select id="taskStatus" name="taskStatus" required>
+                    <option value="to-do">to-do</option>
+                    <option value="progressing">progressing</option>
+                    <option value="done">done</option>
+                    <option value="cancelled">cancelled</option>
+                </select>
+                <button id="addTask">add task</button>
+            </div>
             <div id="tasksDOMContainer"></div>
         </div>
-        <div id="taskEntry">
-            <label for="taskName" hidden="">task name:</label>
-            <input type="text" id="taskName" name="taskName" placeholder="task name" required>
-            <label for="taskDate" hidden>due date:</label>
-            <input type="date" id="taskDate" name="taskDate" placeholder="due date" required>
-            <label for="taskStatus" hidden>select status:</label>
-            <select id="taskStatus" name="taskStatus" required>
-                <option value="notStarted">Not started</option>
-                <option value="inProgress">In progress</option>
-                <option value="done">Done</option>
-                <option value="cancelled">Cancelled</option>
-            </select>
-            <button id="addTask">add task</button>
-        </div>
+
     </div>
 </div>
     <script src="app.js"></script>

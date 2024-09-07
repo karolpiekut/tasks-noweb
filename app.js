@@ -9,15 +9,17 @@ const taskNameInput = document.querySelector("#taskName");
 const taskDateInput = document.querySelector("#taskDate");
 const taskStatusInput = document.querySelector("#taskStatus");
 const addTaskButton = document.querySelector("#addTask");
-//const taskListSection = document.querySelector("#taskList");
 const tasksDomContainer = document.querySelector("#tasksDOMContainer");
-//const deleteButtons = document.querySelectorAll(".taskDeleteButtonClass");
 const projectHeaderH4 = document.querySelector("#selectedProjectName");
 const archiveButton = document.querySelector("#archiveButton");
 const projectStatusDisplayID = document.querySelector("#projectStatusDisplayID");
 const projectDateId = document.querySelector("#projectDateId");
-//const projectInfoHeader = document.querySelector("#projectInfo");
-const amendProjectButton = document.querySelector("#amendProjectButton");
+const amendProjectBtnConfirm = document.querySelector("#amendProjectBtnConfirm");
+const projectNameAmendField = document.querySelector("#projectNameAmend");
+const projectDateAmendField = document.querySelector("#projectDateAmend");
+const projectStatusAmendField = document.querySelector("#projectStatusAmend");
+const taskAddSection = document.querySelector("#taskEntry");
+
 
 let appStorage = localStorage.getItem("appStorage")
     ? JSON.parse(localStorage.getItem("appStorage"))
@@ -86,7 +88,7 @@ function createAProjectDom(projectName) {
 
 function changeArchiveStatus() {
     if (projectSelectedState === "allProjectsSelect" || projectSelectedState === "archivedProjectsSelect") {
-        alert("please select a valid project");
+        alert("please select a valid project (you can only archive projects)");
     } else {
         appStorage[projectSelectedState].archivedProjectsSelect = 1;
         localStorage.setItem("appStorage", JSON.stringify(appStorage));
@@ -98,6 +100,7 @@ function changeArchiveStatus() {
 //FIX DO NOT REPEAT YOURSELF!!!!!!!!!!!
 
 function displayArchivedProjects() {
+    taskAddSection.style.display = "none";
     projectStatusDisplayID.innerHTML = "";
     projectDateId.innerHTML = "";
     for (let j in appStorage) {
@@ -121,6 +124,7 @@ function displayArchivedProjects() {
 }
 
 function displayAllTasks() {
+    taskAddSection.style.display = "none";
     projectStatusDisplayID.innerHTML = "";
     projectDateId.innerHTML = "";
     projectHeaderH4.innerText = "All Tasks";
@@ -203,7 +207,7 @@ function Task(taskName, date, status) {
 
 function createATask() {
     if (projectSelectedState === "allProjectsSelect" || projectSelectedState === "archivedProjectsSelect") {
-        alert("please select a valid project");
+        alert("please select a valid project (you can only set tasks against projects)");
     } else {
         appStorage[projectSelectedState].taskList.push(
             Task(taskNameInput.value, taskDateInput.value, taskStatusInput.value),
@@ -247,45 +251,27 @@ function createATask() {
 
 //RE-USE ADD PROJECT WINDOW!!!!!!!!!
 function amendProjectDetails() {
-
-    //
-    // projectHeaderH4.addEventListener("click", amendProjectDetails);
-    // projectStatusDisplayID.addEventListener("click", amendProjectDetails);
-    // projectDateId.addEventListener("click", amendProjectDetails);
     if (projectSelectedState === "allProjectsSelect" || projectSelectedState === "archivedProjectsSelect") {
-        console.log("it doesn't work");
+        alert("please select a valid project (you can only amend projects)");
     } else {
-        console.log("I actually do work");
+        if (projectNameAmendField.value === "" || projectDateAmendField.value === "") {
+            alert("please input the correct value (no blanks)");
+        }
+        appStorage[projectSelectedState].projectName = projectNameAmendField.value;
+        appStorage[projectSelectedState].dueDate = projectDateAmendField.value;
+        appStorage[projectSelectedState].status = projectStatusAmendField.value;
+        localStorage.setItem("appStorage", JSON.stringify(appStorage));
+        projectHeaderH4.innerText = appStorage[projectSelectedState].projectName;
+        projectStatusDisplayID.innerText = appStorage[projectSelectedState].status;
+        projectDateId.innerText = appStorage[projectSelectedState].dueDate;
+        while (activeProjectsList.hasChildNodes()) {
+            activeProjectsList.removeChild(activeProjectsList.firstChild);
+        }
+        displayProjectList();
+        document.getElementById("projectAmendEntry").style.display = "none";
     }
-    // } else {
-    //     if (this.id === "selectedProjectName") {
-    //         let newProjectName;
-    //         do {
-    //             newProjectName = prompt("New project name:");
-    //         } while(newProjectName === null || newProjectName === "" );
-    //         amendProjectDetailsInStorage(projectSelectedState, "projectName", newProjectName);
-    //
-    //         while (activeProjectsList.hasChildNodes()) {
-    //             activeProjectsList.removeChild(activeProjectsList.firstChild);
-    //         }
-    //         displayProjectList();
-    //         projectHeaderH4.innerHTML = newProjectName;
-    //     } else if (this.id === "projectStatusDisplayID") {
-    //         //this is so, so bad
-    //         let updateProjectStatus;
-    //         do {
-    //             updateProjectStatus = prompt("New project status: (1 for Not started, 2 for In Progress, 3 for Done, 4 for Cancelled:");
-    //         } while (updateProjectStatus === null || updateProjectStatus === "");
-    //         console.log(updateProjectStatus);
-    //     } else if (this.id === "projectDateId") {
-    //         console.log("date");
-    //     }
-    // }
 }
 
-
-
-//create rules for changing selected project header, but not archive or all
 
 // function deleteIndividualTask() {
 //     console.log(this);
@@ -315,12 +301,29 @@ function amendProjectDetailsInStorage(projectId, property, newValue) {
 //     localStorage.clear();
 // }
 
+//fix with two functions max
+
 function openForm() {
     document.getElementById("projectEntry").style.display = "block";
 }
 
 function closeForm() {
     document.getElementById("projectEntry").style.display = "none";
+}
+
+function openAmendForm() {
+    if (projectSelectedState === "allProjectsSelect" || projectSelectedState === "archivedProjectsSelect") {
+        alert("please select a valid project (you can only amend projects)");
+    } else {
+        projectNameAmendField.value = appStorage[projectSelectedState].projectName;
+        projectDateAmendField.value = appStorage[projectSelectedState].dueDate;
+        projectStatusAmendField.value = appStorage[projectSelectedState].status;
+        document.getElementById("projectAmendEntry").style.display = "block";
+    }
+}
+
+function closeAmendForm() {
+    document.getElementById("projectAmendEntry").style.display = "none";
 }
 
 //alert("please use it in full screen, I am too lazy to add media queries for now :)")
@@ -332,6 +335,7 @@ addProjectButton.addEventListener("click", createAProject);
 addTaskButton.addEventListener("click", createATask);
 
 activeProjectsList.addEventListener("click", function (event) {
+    taskAddSection.style.display = "flex";
     if (!event.target.classList.contains("projectListSelect")) return;
     projectSelectedState = event.target.id;
     displayTasksDom(projectSelectedState);
@@ -340,6 +344,9 @@ activeProjectsList.addEventListener("click", function (event) {
     projectDateId.innerText = appStorage[projectSelectedState].dueDate;
     projectHeaderH4.style.borderRight = "1px solid black";
     projectHeaderH4.style.paddingRight = "10px";
+    projectNameAmendField.value = appStorage[projectSelectedState].projectName;
+    projectDateAmendField.value = appStorage[projectSelectedState].dueDate;
+    projectStatusAmendField.value = appStorage[projectSelectedState].status;
 
 });
 
@@ -375,4 +382,4 @@ archiveButton.addEventListener("click", changeArchiveStatus);
 // });
 
 //projectInfoHeader.addEventListener("click", amendProjectDetails);
-amendProjectButton.addEventListener("click", amendProjectDetails);
+amendProjectBtnConfirm.addEventListener("click", amendProjectDetails);
