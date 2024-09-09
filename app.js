@@ -20,18 +20,28 @@ const projectDateAmendField = document.querySelector("#projectDateAmend");
 const projectStatusAmendField = document.querySelector("#projectStatusAmend");
 const taskAddSection = document.querySelector("#taskEntry");
 
+projectDateInput.valueAsDate = new Date();
+taskDateInput.valueAsDate = new Date();
 
-let appStorage = localStorage.getItem("appStorage")
-    ? JSON.parse(localStorage.getItem("appStorage"))
-    : [];
 
-let customTaskIndex = -1;
+let appStorage = localStorage.getItem("appStorage") ? JSON.parse(localStorage.getItem("appStorage")) : [];
+
+let customTaskIndex;
 let customProjectIndex;
+
 
 if (appStorage.length === 0) {
     customProjectIndex = -1;
+    customTaskIndex = -1;
 } else {
     customProjectIndex = appStorage[appStorage.length - 1].customProjectIndex;
+    let tempTaskArray = [];
+    for (let i in appStorage) {
+        for (let j in appStorage[i].taskList) {
+            tempTaskArray.push(appStorage[i].taskList[j].customTaskIndex);
+        }
+    }
+    customTaskIndex = tempTaskArray[tempTaskArray.length - 1];
 }
 
 let projectSelectedState = "allProjectsSelect";
@@ -41,7 +51,7 @@ function displayProjectList() {
         if (appStorage[i].archivedProjectsSelect !== 1) {
             const projectItem = document.createElement("h5");
             projectItem.classList.add("projectListSelect");
-            projectItem.setAttribute("id", appStorage[i].customProjectIndex);
+            projectItem.setAttribute("id", "p" + appStorage[i].customProjectIndex);
             projectItem.innerText = appStorage[i].projectName;
             activeProjectsList.appendChild(projectItem);
         }
@@ -52,12 +62,7 @@ function Project(projectName, dueDate, status) {
     customProjectIndex++;
     let archiveStatus = 0;
     return {
-        customProjectIndex,
-        projectName,
-        dueDate,
-        status,
-        archiveStatus,
-        taskList: [],
+        customProjectIndex, projectName, dueDate, status, archiveStatus, taskList: [],
     };
 }
 
@@ -65,23 +70,18 @@ function createAProject() {
     if (projectNameInput.value === "") {
         alert("Please enter a valid name");
     } else {
-        appStorage.push(
-            Project(
-                projectNameInput.value,
-                projectDateInput.value,
-                projectStatusInput.value,
-            ),
-        );
+        appStorage.push(Project(projectNameInput.value, projectDateInput.value, projectStatusInput.value,),);
         localStorage.setItem("appStorage", JSON.stringify(appStorage));
         createAProjectDom(projectNameInput.value);
         projectNameInput.value = "";
+        document.getElementById("projectEntry").style.display = "none";
     }
 }
 
 function createAProjectDom(projectName) {
     const projectItem = document.createElement("h5");
     projectItem.classList.add("projectListSelect");
-    projectItem.setAttribute("id", customProjectIndex);
+    projectItem.setAttribute("id", "p" + customProjectIndex);
     projectItem.innerText = projectName;
     activeProjectsList.appendChild(projectItem);
 }
@@ -111,7 +111,7 @@ function displayArchivedProjects() {
                     <time id="projectDateId" dateTime="2024-06-27">${appStorage[j].dueDate}</time></div>`
             for (let i in appStorage[j].taskList) {
                 projectRepeat += `
-                    <div class="individualTask"><p class="taskNameClass">${appStorage[j].taskList[i].taskName}</p>
+                    <div class="individualTask" id=${appStorage[j].taskList[i].customTaskIndex}><p class="taskNameClass">${appStorage[j].taskList[i].taskName}</p>
                     <time class="taskDateClass" dateTime="2024-06-27">${appStorage[j].taskList[i].date}</time>
                     <p class="taskStatusClass">${appStorage[j].taskList[i].status}</p>
                     </div>
@@ -137,7 +137,7 @@ function displayAllTasks() {
                     <time id="projectDateId" dateTime="2024-06-27">${appStorage[j].dueDate}</time></div>`
             for (let i in appStorage[j].taskList) {
                 projectRepeat += `
-                    <div class="individualTask"><p class="taskNameClass">${appStorage[j].taskList[i].taskName}</p>
+                    <div class="individualTask" id=${appStorage[j].taskList[i].customTaskIndex}><p class="taskNameClass">${appStorage[j].taskList[i].taskName}</p>
                     <time class="taskDateClass" dateTime="2024-06-27">${appStorage[j].taskList[i].date}</time>
                     <p class="taskStatusClass">${appStorage[j].taskList[i].status}</p>
                     </div>
@@ -151,7 +151,6 @@ function displayAllTasks() {
 
 //FIX DO NOT REPEAT YOURSELF!!!!!!!!!!!
 
-
 function displayTasksDom(selectedProject) {
     while (tasksDomContainer.hasChildNodes()) {
         tasksDomContainer.removeChild(tasksDomContainer.firstChild);
@@ -163,7 +162,7 @@ function displayTasksDom(selectedProject) {
         displayArchivedProjects();
     } else {
         for (let i in appStorage[selectedProject].taskList) {
-            let taskRepeat = `<div class="individualTask">
+            let taskRepeat = `<div class="individualTask" id=${appStorage[selectedProject].taskList[i].customTaskIndex}>
                 <p class="taskNameClass">${appStorage[selectedProject].taskList[i].taskName}</p>
                 <time class="taskDateClass" dateTime="2024-06-27">${appStorage[selectedProject].taskList[i].date}</time>
                 <p class="taskStatusClass">${appStorage[selectedProject].taskList[i].status}</p>
@@ -198,10 +197,7 @@ function displayTasksDom(selectedProject) {
 function Task(taskName, date, status) {
     customTaskIndex++;
     return {
-        customTaskIndex,
-        taskName,
-        date,
-        status,
+        customTaskIndex, taskName, date, status,
     };
 }
 
@@ -209,12 +205,10 @@ function createATask() {
     if (projectSelectedState === "allProjectsSelect" || projectSelectedState === "archivedProjectsSelect") {
         alert("please select a valid project (you can only set tasks against projects)");
     } else {
-        appStorage[projectSelectedState].taskList.push(
-            Task(taskNameInput.value, taskDateInput.value, taskStatusInput.value),
-        );
+        appStorage[projectSelectedState].taskList.push(Task(taskNameInput.value, taskDateInput.value, taskStatusInput.value),);
         localStorage.setItem("appStorage", JSON.stringify(appStorage));
 
-        let taskRepeat = `<div class="individualTask">
+        let taskRepeat = `<div class="individualTask" id=${customTaskIndex}>
         <p class="taskNameClass">${taskNameInput.value}</p>
         <time class="taskDateClass" dateTime="2024-06-27">${taskDateInput.value}</time>
         <p class="taskStatusClass">${taskStatusInput.value}</p>
@@ -243,11 +237,10 @@ function createATask() {
         </div>`;
         tasksDomContainer.insertAdjacentHTML("beforeend", taskRepeat);
         taskNameInput.value = "";
-        taskDateInput.value = "";
-        taskStatusInput.value = "notStarted:";
+        taskDateInput.valueAsDate = new Date();
+        taskStatusInput.value = "to-do";
     }
 }
-
 
 //RE-USE ADD PROJECT WINDOW!!!!!!!!!
 function amendProjectDetails() {
@@ -273,33 +266,36 @@ function amendProjectDetails() {
 }
 
 
-// function deleteIndividualTask() {
-//     console.log(this);
+function amendTask() {
+    //
+// for (let i in deleteButtons){
+//     deleteButtons[i].addEventListener("click", deleteIndividualTask);
 // }
-//
-// function removeTaskInStorage(projectId, taskId) {
-//     appStorage[projectId].taskList.splice(taskId, 1);
-//     localStorage.setItem("appStorage", JSON.stringify(appStorage));
-// }
-//
-// function removeProjectInStorage(projectId) {
-//     appStorage.splice(projectId, 1);
-//     localStorage.setItem("appStorage", JSON.stringify(appStorage));
-// }
+//deleteButtons[0].addEventListener("click", deleteIndividualTask);
 
-function amendProjectDetailsInStorage(projectId, property, newValue) {
-    appStorage[projectId][property] = newValue;
+// window.addEventListener("DOMContentLoaded", (event) => {
+//   const el = document.querySelectorAll(".taskDeleteButtonClass");
+//   for (let i in el) {
+//     if (el[i]) {
+//       el.addEventListener("click", deleteIndividualTask, false);
+//     }
+//   }
+// });
+}
+
+function deleteIndividualTask() {
+    console.log(this);
+}
+
+function removeTaskInStorage(projectId, taskId) {
+    appStorage[projectId].taskList.splice(taskId, 1);
     localStorage.setItem("appStorage", JSON.stringify(appStorage));
 }
 
-// function amendTaskDetailsInStorage(projectId, taskId, property, newValue) {
-//     appStorage[projectId].taskList[taskId][property] = newValue;
-//     localStorage.setItem("appStorage", JSON.stringify(appStorage));
-// }
-
-// function clearLocalStorage() {
-//     localStorage.clear();
-// }
+function amendTaskDetailsInStorage(projectId, taskId, property, newValue) {
+    appStorage[projectId].taskList[taskId][property] = newValue;
+    localStorage.setItem("appStorage", JSON.stringify(appStorage));
+}
 
 //fix with two functions max
 
@@ -337,7 +333,7 @@ addTaskButton.addEventListener("click", createATask);
 activeProjectsList.addEventListener("click", function (event) {
     taskAddSection.style.display = "flex";
     if (!event.target.classList.contains("projectListSelect")) return;
-    projectSelectedState = event.target.id;
+    projectSelectedState = event.target.id.slice(1);
     displayTasksDom(projectSelectedState);
     projectHeaderH4.innerText = appStorage[projectSelectedState].projectName;
     projectStatusDisplayID.innerText = appStorage[projectSelectedState].status;
@@ -366,20 +362,19 @@ allProjectsSelect.addEventListener("click", function (event) {
 
 archiveButton.addEventListener("click", changeArchiveStatus);
 
-//
-// for (let i in deleteButtons){
-//     deleteButtons[i].addEventListener("click", deleteIndividualTask);
-// }
-//deleteButtons[0].addEventListener("click", deleteIndividualTask);
-
-// window.addEventListener("DOMContentLoaded", (event) => {
-//   const el = document.querySelectorAll(".taskDeleteButtonClass");
-//   for (let i in el) {
-//     if (el[i]) {
-//       el.addEventListener("click", deleteIndividualTask, false);
-//     }
-//   }
-// });
-
-//projectInfoHeader.addEventListener("click", amendProjectDetails);
 amendProjectBtnConfirm.addEventListener("click", amendProjectDetails);
+
+///////////////////////////////////////////////////future refactor/////////////////////////////////////////////////////
+
+// function clearLocalStorage() {
+//     localStorage.clear();
+// }
+// function removeProjectInStorage(projectId) {
+//     appStorage.splice(projectId, 1);
+//     localStorage.setItem("appStorage", JSON.stringify(appStorage));
+// }
+
+// function amendProjectDetailsInStorage(projectId, property, newValue) {
+//     appStorage[projectId][property] = newValue;
+//     localStorage.setItem("appStorage", JSON.stringify(appStorage));
+// }
