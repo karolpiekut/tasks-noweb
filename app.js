@@ -204,8 +204,8 @@ function createATask() {
         <p class="taskStatusClass">${taskStatusInput.value}</p>
         <div class="taskButtons">
                 <button class="taskCompleteButtonClass taskButtonsSelector" id=c${customTaskIndex}>done</button>
-                <button class="taskAmendButtonClass taskButtonsSelector" id=a$${customTaskIndex}>amend</button>
-                <button class="taskDeleteButtonClass taskButtonsSelector" id=d$${customTaskIndex}>delete</button>
+                <button class="taskAmendButtonClass taskButtonsSelector" id=a${customTaskIndex}>amend</button>
+                <button class="taskDeleteButtonClass taskButtonsSelector" id=d${customTaskIndex}>delete</button>
         </div>
         </div>`;
         tasksDomContainer.insertAdjacentHTML("beforeend", taskRepeat);
