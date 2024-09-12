@@ -48,7 +48,8 @@
             <div class="form-container">
                 <div id="formInputFieldsAmend">
                     <div id="inputProjectNameDivAmend"><label hidden for="projectNameAmend">project name</label>
-                        <input type="text" id="projectNameAmend" name="projectNameAmend" placeholder="project" required></div>
+                        <input type="text" id="projectNameAmend" name="projectNameAmend" placeholder="project" required>
+                    </div>
                     <div id="inputProjectDateDivAmend"><label hidden for="projectDateAmend">due</label>
                         <input type="date" id="projectDateAmend" name="projectDateAmend"></div>
                     <div id="inputProjectStatusDivAmend"><label hidden for="projectStatusAmend">status</label>
@@ -63,8 +64,30 @@
                 <button type="button" class="btn cancel" onclick="closeAmendForm()">close</button>
             </div>
         </div>
-
         <!--project amend section-->
+        <!--task amend section  TERAZ TO!!!!!!!!!!!!-->
+        <div class="amend-task-form-popup" id="taskAmendEntry">
+            <div class="form-container">
+                <div id="formInputFieldsAmendTask">
+                    <div id="inputTaskNameDivAmendTask"><label hidden for="taskNameAmend">task name</label>
+                        <input type="text" id="taskNameAmend" name="taskNameAmend" placeholder="task" required>
+                    </div>
+                    <div id="inputTaskDateDivAmend"><label hidden for="taskDateAmend">due</label>
+                        <input type="date" id="taskDateAmend" name="taskDateAmend"></div>
+                    <div id="inputTaskStatusDivAmend">
+                        <label hidden for="taskStatusAmend">status</label>
+                        <select id="taskStatusAmend" name="taskStatusAmend" required>
+                            <option value="to-do">to-do</option>
+                            <option value="progressing">progressing</option>
+                            <option value="done">done</option>
+                            <option value="cancelled">cancelled</option>
+                        </select></div>
+                </div>
+                <button id="amendTaskBtnConfirm" class="btn">amend task</button>
+                <button type="button" class="btn cancel" onclick="closeAmendTaskForm()">close</button>
+            </div>
+        </div>
+        <!--task amend section-->
     </div>
     <div id="taskList">
         <div id=selectedProjectSection>
@@ -97,6 +120,6 @@
 
     </div>
 </div>
-    <script src="app.js"></script>
+<script src="app.js"></script>
 </body>
 </html>

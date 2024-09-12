@@ -64,29 +64,35 @@ body {
     align-items: center;
 }
 
-.taskCompleteButtonClass, .taskDeleteButtonClass {
-    width: 30px;
+.taskCompleteButtonClass, .taskDeleteButtonClass , .taskAmendButtonClass {
+    width: 45px;
     height: 30px;
     border: none;
     opacity: 0.8;
     color: white;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .taskDeleteButtonClass {
-    background: orange;
+    background: red;
 }
 
 .taskCompleteButtonClass {
     background: #04AA6D;
 }
 
+.taskAmendButtonClass {
+    background: orange;
+}
+
 .taskButtons {
+    margin-left: 10px;
     width: 100px;
     display: flex;
     flex-direction: row;
-    gap: 15px;
+    gap: 10px;
     align-items: center;
     justify-content: center;
 }
@@ -141,6 +147,16 @@ body {
     z-index: 9;
 }
 
+.amend-task-form-popup {
+    display: none;
+    position: fixed;
+    left: 45%;
+    top: 30%;
+    border: 3px solid #ffa6a6;
+    /*border: 3px solid #f1f1f1;*/
+    z-index: 9;
+}
+
 /* Add styles to the form container */
 .form-container {
     max-width: 300px;
@@ -178,7 +194,7 @@ body {
     background-color: orange;
 }
 
-.form-container .btn:hover, .open-button:hover, .taskCompleteButtonClass:hover, .taskDeleteButtonClass:hover {
+.form-container .btn:hover, .open-button:hover, .taskCompleteButtonClass:hover, .taskDeleteButtonClass:hover, .taskAmendButtonClass:hover {
     opacity: 1;
 }
 
@@ -186,7 +202,7 @@ body {
     background: red;
 }
 
-#formInputFields, #formInputFieldsAmend {
+#formInputFields, #formInputFieldsAmend, #formInputFieldsAmendTask {
     display: flex;
     flex-direction: column;
     gap: 3px;
@@ -194,24 +210,13 @@ body {
 
 }
 
-#projectStatus, #projectDate {
+#projectStatus, #projectDate, #projectStatusAmend, #projectDateAmend, #taskDateAmend, #taskStatusAmend {
     height: 30px;
     margin-bottom: 5px;
     width: 200px;
 }
 
-#projectStatusAmend, #projectDateAmend {
-    height: 30px;
-    margin-bottom: 5px;
-    width: 200px;
-}
-
-#projectName {
-    margin-bottom: 5px;
-    width: 200px;
-}
-
-#projectNameAmend {
+#projectName, #projectNameAmend, #taskNameAmend {
     margin-bottom: 5px;
     width: 200px;
 }
@@ -246,8 +251,9 @@ body {
 
 #taskEntry {
     margin-top: 10px;
-    margin-bottom: 10px;
     gap: 5px;
+    padding-bottom: 10px;
+    border-bottom: solid 1px #cecece;
 }
 
 #selectedProjectName {
@@ -353,4 +359,3 @@ div > #tasksDOMContainer {
     border-right: 1px solid black;
     padding-right: 5px;
 }
-

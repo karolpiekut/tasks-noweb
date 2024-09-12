@@ -19,6 +19,12 @@ const projectNameAmendField = document.querySelector("#projectNameAmend");
 const projectDateAmendField = document.querySelector("#projectDateAmend");
 const projectStatusAmendField = document.querySelector("#projectStatusAmend");
 const taskAddSection = document.querySelector("#taskEntry");
+const tasksDOMContainer = document.querySelector("#tasksDOMContainer");
+const taskNameAmendField = document.querySelector("#taskNameAmend");
+const taskDateAmendField = document.querySelector("#taskDateAmend");
+const taskStatusAmendField = document.querySelector("#taskStatusAmend");
+const confirmAmendTaskButton = document.querySelector("#amendTaskBtnConfirm");
+
 
 projectDateInput.valueAsDate = new Date();
 taskDateInput.valueAsDate = new Date();
@@ -167,25 +173,9 @@ function displayTasksDom(selectedProject) {
                 <time class="taskDateClass" dateTime="2024-06-27">${appStorage[selectedProject].taskList[i].date}</time>
                 <p class="taskStatusClass">${appStorage[selectedProject].taskList[i].status}</p>
                 <div class="taskButtons">
-                <button class="taskCompleteButtonClass"><?xml version="1.0" encoding="UTF-8"?>
-                <svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
-            xmlns="http://www.w3.org/2000/svg" color="#FFFFFFFF">
-                <path d="M5 13L9 17L19 7" stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round"
-            stroke-linejoin="round"></path>
-                </svg>
-                </button>
-                <button class="taskDeleteButtonClass"><?xml version="1.0" encoding="UTF-8"?>
-                <svg width="24px" height="24px" viewBox="0 0 24 24" stroke-width="1.5" fill="none"
-            xmlns="http://www.w3.org/2000/svg" color="#FFFFFFFF">
-                <path
-            d="M20 9L18.005 20.3463C17.8369 21.3026 17.0062 22 16.0353 22H7.96474C6.99379 22 6.1631 21.3026 5.99496 20.3463L4 9"
-            stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round"
-            stroke-linejoin="round"></path>
-                <path
-            d="M21 6L15.375 6M3 6L8.625 6M8.625 6V4C8.625 2.89543 9.52043 2 10.625 2H13.375C14.4796 2 15.375 2.89543 15.375 4V6M8.625 6L15.375 6"
-            stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round"
-            stroke-linejoin="round"></path>
-                </svg>
+                    <button class="taskCompleteButtonClass taskButtonsSelector" id=c${appStorage[selectedProject].taskList[i].customTaskIndex}>done</button>
+                    <button class="taskAmendButtonClass taskButtonsSelector"  id=a${appStorage[selectedProject].taskList[i].customTaskIndex}>amend</button>
+                    <button class="taskDeleteButtonClass taskButtonsSelector" id=d${appStorage[selectedProject].taskList[i].customTaskIndex}>delete</button>
                 </button>
                 </div>
                 </div>`;
@@ -213,26 +203,9 @@ function createATask() {
         <time class="taskDateClass" dateTime="2024-06-27">${taskDateInput.value}</time>
         <p class="taskStatusClass">${taskStatusInput.value}</p>
         <div class="taskButtons">
-        <button class="taskCompleteButtonClass"><?xml version="1.0" encoding="UTF-8"?>
-        <svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
-    xmlns="http://www.w3.org/2000/svg" color="#FFFFFFFF">
-        <path d="M5 13L9 17L19 7" stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round"
-    stroke-linejoin="round"></path>
-        </svg>
-        </button>
-        <button class="taskDeleteButtonClass"><?xml version="1.0" encoding="UTF-8"?>
-        <svg width="24px" height="24px" viewBox="0 0 24 24" stroke-width="1.5" fill="none"
-    xmlns="http://www.w3.org/2000/svg" color="#FFFFFFFF">
-        <path
-    d="M20 9L18.005 20.3463C17.8369 21.3026 17.0062 22 16.0353 22H7.96474C6.99379 22 6.1631 21.3026 5.99496 20.3463L4 9"
-    stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round"
-    stroke-linejoin="round"></path>
-        <path
-    d="M21 6L15.375 6M3 6L8.625 6M8.625 6V4C8.625 2.89543 9.52043 2 10.625 2H13.375C14.4796 2 15.375 2.89543 15.375 4V6M8.625 6L15.375 6"
-    stroke="#FFFFFFFF" stroke-width="1.5" stroke-linecap="round"
-    stroke-linejoin="round"></path>
-        </svg>
-        </button>
+                <button class="taskCompleteButtonClass taskButtonsSelector" id=c${customTaskIndex}>done</button>
+                <button class="taskAmendButtonClass taskButtonsSelector" id=a$${customTaskIndex}>amend</button>
+                <button class="taskDeleteButtonClass taskButtonsSelector" id=d$${customTaskIndex}>delete</button>
         </div>
         </div>`;
         tasksDomContainer.insertAdjacentHTML("beforeend", taskRepeat);
@@ -266,21 +239,25 @@ function amendProjectDetails() {
 }
 
 
-function amendTask() {
-    //
-// for (let i in deleteButtons){
-//     deleteButtons[i].addEventListener("click", deleteIndividualTask);
-// }
-//deleteButtons[0].addEventListener("click", deleteIndividualTask);
+function amendTask(taskId) {
+    for (let i in appStorage[projectSelectedState].taskList) {
+        if (Number(taskId) === appStorage[projectSelectedState].taskList[i].customTaskIndex) {
+            document.getElementById("taskAmendEntry").style.display = "block";
+            console.log(appStorage[projectSelectedState].taskList[i]);
+            taskNameAmendField.value = appStorage[projectSelectedState].taskList[i].taskName;
+            taskDateAmendField.value = appStorage[projectSelectedState].taskList[i].date;
+            taskStatusAmendField.value = appStorage[projectSelectedState].taskList[i].status;
+            confirmAmendTaskButton.addEventListener("click", function () {
+                appStorage[projectSelectedState].taskList[i].taskName = taskNameAmendField.value;
+                appStorage[projectSelectedState].taskList[i].date = taskDateAmendField.value;
+                appStorage[projectSelectedState].taskList[i].status = taskStatusAmendField.value;
+                localStorage.setItem("appStorage", JSON.stringify(appStorage));
+                displayTasksDom(projectSelectedState);
+                closeAmendTaskForm()
+            })
+        }
+    }
 
-// window.addEventListener("DOMContentLoaded", (event) => {
-//   const el = document.querySelectorAll(".taskDeleteButtonClass");
-//   for (let i in el) {
-//     if (el[i]) {
-//       el.addEventListener("click", deleteIndividualTask, false);
-//     }
-//   }
-// });
 }
 
 function deleteIndividualTask() {
@@ -322,6 +299,10 @@ function closeAmendForm() {
     document.getElementById("projectAmendEntry").style.display = "none";
 }
 
+function closeAmendTaskForm() {
+    document.getElementById("taskAmendEntry").style.display = "none";
+}
+
 //alert("please use it in full screen, I am too lazy to add media queries for now :)")
 
 displayProjectList();
@@ -331,8 +312,8 @@ addProjectButton.addEventListener("click", createAProject);
 addTaskButton.addEventListener("click", createATask);
 
 activeProjectsList.addEventListener("click", function (event) {
-    taskAddSection.style.display = "flex";
     if (!event.target.classList.contains("projectListSelect")) return;
+    taskAddSection.style.display = "flex";
     projectSelectedState = event.target.id.slice(1);
     displayTasksDom(projectSelectedState);
     projectHeaderH4.innerText = appStorage[projectSelectedState].projectName;
@@ -345,6 +326,18 @@ activeProjectsList.addEventListener("click", function (event) {
     projectStatusAmendField.value = appStorage[projectSelectedState].status;
 
 });
+
+tasksDOMContainer.addEventListener("click", function (event) {
+    if (!event.target.classList.contains("taskButtonsSelector")) return;
+    if (Array.from(event.target.id)[0] === "c") {
+        console.log("done");
+    } else if (Array.from(event.target.id)[0] === "a") {
+        amendTask(event.target.id.slice(1))
+    } else if (Array.from(event.target.id)[0] === "d") {
+        console.log("delete");
+    }
+})
+
 
 archiveProjects.addEventListener("click", function (event) {
     projectSelectedState = event.target.id;
@@ -363,6 +356,7 @@ allProjectsSelect.addEventListener("click", function (event) {
 archiveButton.addEventListener("click", changeArchiveStatus);
 
 amendProjectBtnConfirm.addEventListener("click", amendProjectDetails);
+
 
 ///////////////////////////////////////////////////future refactor/////////////////////////////////////////////////////
 
