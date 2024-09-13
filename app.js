@@ -257,7 +257,6 @@ function amendTask(taskId) {
             })
         }
     }
-
 }
 
 function deleteIndividualTask() {
